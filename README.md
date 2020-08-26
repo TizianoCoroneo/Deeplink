@@ -1,5 +1,7 @@
 # 🎣 Deeplink
 
+A microlibrary to parse deeplinks and their arguments using String interpolation.
+
 ## [What is deeplinking?](https://branch.io/what-is-deep-linking/)
 
 Mobile app deep links (also known simply as “deep links”) point to content inside an app. If you want to share a pair of shoes from the Jet with a friend, you can send a deep link that brings your friend directly to those shoes in the app. Without a deep link, your friend would have to find the Jet app on the App Store or Play Store, open the app to the homepage, locate the Search function, and then try to find the same pair of shoes you did.
