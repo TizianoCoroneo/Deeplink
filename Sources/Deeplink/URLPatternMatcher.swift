@@ -49,8 +49,8 @@ struct URLPatternMatcher: Equatable, Hashable {
     /// Example:
     /// ```swift
     /// struct Event {
-    ///    var name: String = ""
-    ///    var id: String = ""
+    ///    var name: String?
+    ///    var id: String?
     /// }
     ///
     /// let deeplink: Deeplink<Event> = "/sell/\(\.name)/regular/\(\.id)"

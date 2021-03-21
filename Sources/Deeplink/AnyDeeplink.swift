@@ -8,8 +8,9 @@
 import Foundation
 
 /// Type-erased version of `Deeplink`. Used to keep a list of `Deeplink`s in the `DeeplinkCenter` where every element of the list might have different type parameters.
-struct AnyDeeplink {
+public struct AnyDeeplink: CustomStringConvertible {
     private let parseURLIntoInstance: (URL) throws -> Bool
+    public let description: String
 
     /// Designated initializer.
     ///
@@ -27,6 +28,25 @@ struct AnyDeeplink {
             try deeplink.parse(url, into: &newInstance)
             return try completion(url, newInstance)
         }
+
+        self.description = deeplink.description
+    }
+
+    /// Initializer that assigns the deeplink values to a fresh new instance of `Value`.
+    ///
+    /// - Parameters:
+    ///   - deeplink: The `Deeplink` template to type-erase.
+    ///   - completion: The completion handler to invoke if the `URL` passed to the `parse(_ url:)` function matches the deeplink template.
+    init<Value>(
+        deeplink: Deeplink<Value>,
+        ifMatching completion: @escaping (URL, Value) throws -> Bool
+    )
+    where Value: DefaultInitializable
+    {
+        self.init(
+            deeplink: deeplink,
+            assigningTo: .init(),
+            ifMatching: completion)
     }
 }
 

@@ -101,6 +101,57 @@ public extension Deeplink where Value == Void {
     }
 }
 
+// MARK: - Converting to AnyDeeplink
+
+public extension Deeplink {
+
+    /// Embeds the action to take when matching this deeplink into the deeplink itself, producing a AnyDeeplink instance.
+    /// - Parameters:
+    ///   - value: Value to assign the content of the deeplink to.
+    ///   - completion: Closure to run when the deeplink is matched.
+    /// - Returns: A `AnyDeeplink` ready to be added to the `DeeplinkCenter`
+    func callAsFunction(
+        assigningTo value: Value,
+        _ completion: @escaping (URL, Value) -> Bool
+    ) -> AnyDeeplink {
+        AnyDeeplink(
+            deeplink: self,
+            assigningTo: value,
+            ifMatching: completion)
+    }
+}
+
+public extension Deeplink where Value: DefaultInitializable {
+    /// Embeds the action to take when matching this deeplink into the deeplink itself, producing a AnyDeeplink instance.
+    /// - Parameters:
+    ///   - completion: Closure to run when the deeplink is matched.
+    /// - Returns: A `AnyDeeplink` ready to be added to the `DeeplinkCenter`
+    func callAsFunction(
+        _ completion: @escaping (URL, Value) -> Bool
+    ) -> AnyDeeplink {
+        AnyDeeplink(
+            deeplink: self,
+            ifMatching: completion)
+    }
+}
+
+public extension Deeplink where Value == Void {
+    /// Embeds the action to take when matching this deeplink into the deeplink itself, producing a AnyDeeplink instance.
+    /// - Parameters:
+    ///   - completion: Closure to run when the deeplink is matched.
+    /// - Returns: A `AnyDeeplink` ready to be added to the `DeeplinkCenter`
+    func callAsFunction(
+        _ completion: @escaping (URL) -> Bool
+    ) -> AnyDeeplink {
+        AnyDeeplink(
+            deeplink: self,
+            assigningTo: (),
+            ifMatching: { url, _ in
+                completion(url)
+            })
+    }
+}
+
 // MARK: - CustomStringConvertible
 
 extension Deeplink: CustomStringConvertible {

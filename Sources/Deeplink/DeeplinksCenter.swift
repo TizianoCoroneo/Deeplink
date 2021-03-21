@@ -13,13 +13,55 @@ public class DeeplinksCenter {
     // MARK: - Properties
 
     /// List of deeplinks to try when parsing a `URL`. Order matters!
-    private var deeplinks: [AnyDeeplink] = []
+    private var deeplinks: [AnyDeeplink]
 
     // MARK: - Initializer
 
-    /// Designated initializer. Use the `register` functions to add your deeplinks.
-    public init() {}
+    /// Public initializer that makes an empty center. Use the `register` functions to add your deeplinks.
+    public convenience init() {
+        self.init(deeplinks: [])
+    }
 
+    /**
+     Initializer that takes a DeeplinkBuilder closure.
+
+     Example:
+     ```swift
+     let link1 = "/test/1" as Deeplink<Void>
+     let link2 = try "/test/\(\.arg1)/\(\.arg2)" as Deeplink<TestData>
+     let link3 = try "/test2/\(\.arg1)/\(\.arg2)" as Deeplink<TestData2>
+
+     let center = DeeplinksCenter {
+
+     link1 { url in
+     // Do something
+     return true
+     }
+
+     link2 { url, value in
+     // Do something
+     return true
+     }
+
+     link3(
+     assigningTo: .init(arg1: "default", arg2: "default")
+     ) { (url, value) -> Bool in
+     // Do something
+     return true
+     }
+     }
+     ```
+     - Parameter builder: Closure that builds a list of deeplinks using `DeeplinkBuilder`.
+     **/
+    public convenience init(
+        @DeeplinkBuilder _ builder: () -> [AnyDeeplink]
+    ) {
+        self.init(deeplinks: builder())
+    }
+
+    required init(deeplinks: [AnyDeeplink]) {
+        self.deeplinks = deeplinks
+    }
     // MARK: - Registration methods
 
     /// Function to use to add a deeplink to be recognized when parsing a `URL`.
