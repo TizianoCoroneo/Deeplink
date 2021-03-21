@@ -11,6 +11,15 @@ Mobile app's deep links (also known simply as “deep links”) are URLs that po
 
 This package provides the tools to define a specific deeplink template, pattern match a URL with a deeplink template, and to parse the informations contained in the URL into an object. It does the parsing so you don't have to!
 
+## Installing using the Swift Package Manager
+
+The library only supports the Swift Package Manager. 
+To install `Deeplink` for use in an app, command line tool or server-side application, add Deeplink as a dependency to your `Package.swift` file. For more information, please see the [Swift Package Manager documentation](https://github.com/apple/swift-package-manager/tree/master/Documentation).
+
+```swift
+.package(url: "https://github.com/TizianoCoroneo/Deeplink", from: "0.1.0")
+```
+
 ## Using this library
 
 ### Defining deeplinks
