@@ -26,14 +26,14 @@ Example:
 
 ```swift
 struct TestData {
-    var id: String
-    var text: String
+    var id: String?
+    var text: String?
 }
 
 let myTestDeeplink: Deeplink<TestData> = try! "/test/\(\.id)/\(.text)"
 ```
 
-The interpolation part requires a `WritableKeyPath<Value, String>` where `Value` is your custom type. The property needs to be of type `String`, and needs to be a `var` to let the library write the new value into it. 
+The interpolation part requires a `WritableKeyPath<Value, String?>` where `Value` is your custom type. The property needs to be of type `String?`, and needs to be a `var` to let the library write the new value into it. 
 
 ### Using deeplinks to match/parse URLs
 
@@ -74,6 +74,8 @@ let url = URL(string: "https://ticketswap.com/test/ticket")!
 // Use the deeplink to parse the URL. Will throw if the URL relative part doesn't match the deeplink template. 
 try myTestDeeplink.parse(url)
 ```
+
+In case a property in `TestData` goes unused in a Deeplink template, that property will keep its initial value, which is `nil` unless you customized `TestData` init. Otherwise, if an argument is present in the template, but the URL contains no value for it, the property will assume a value of `""`.
 
 ### Pattern matching with multiple deeplinks
 
