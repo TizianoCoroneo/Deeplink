@@ -12,44 +12,44 @@ import XCTest
 class DeeplinksCenterTests: XCTestCase {
 
     struct Artist: Equatable {
-        var id: String = ""
-        var slug: String = ""
+        var id: String?
+        var slug: String?
     }
 
     struct City: Equatable {
-        var id: String = ""
-        var slug: String = ""
-        var period: String = ""
+        var id: String?
+        var slug: String?
+        var period: String?
     }
 
     struct WantedEvent: Equatable {
-        var id: String = ""
+        var id: String?
     }
 
     struct Event: Equatable {
-        var id: String = ""
-        var slug: String = ""
+        var id: String?
+        var slug: String?
     }
 
     struct EventType: Equatable {
-        var id: String = ""
-        var slug: String = ""
+        var id: String?
+        var slug: String?
         var event = Event()
     }
 
     struct Listing: Equatable {
-        var id: String = ""
-        var slug: String = ""
+        var id: String?
+        var slug: String?
     }
 
     struct Location: Equatable {
-        var id: String = ""
-        var slug: String = ""
-        var period: String = ""
+        var id: String?
+        var slug: String?
+        var period: String?
     }
 
     struct Search: Equatable {
-        var query: String = ""
+        var query: String?
     }
 
     let artistDeeplink = try! "/artist/\(\.slug)/\(\.id)"

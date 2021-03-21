@@ -14,8 +14,8 @@ let universalLink: URL = "https://apple.com/sell/ticket/1"
 let appschemeLink: URL = "apple:///sell/ticket/1"
 
 fileprivate struct TestData {
-    var arg1: String = ""
-    var arg2: String = ""
+    var arg1: String?
+    var arg2: String?
 }
 
 let validSellLinksList: [URL] = [
@@ -177,7 +177,7 @@ let testCaseList: [MatchTestCase] = [
             initialInstance: TestData(),
             verify: {
                 XCTAssertEqual("test", $0.arg1)
-                XCTAssertEqual("", $0.arg2)
+                XCTAssertNil($0.arg2)
         })
     },
 
@@ -189,7 +189,7 @@ let testCaseList: [MatchTestCase] = [
             initialInstance: TestData(),
             verify: {
                 XCTAssertEqual("", $0.arg1)
-                XCTAssertEqual("", $0.arg2)
+                XCTAssertNil($0.arg2)
         }),
 
         // Test if query items arguments match no value
@@ -199,7 +199,7 @@ let testCaseList: [MatchTestCase] = [
             initialInstance: TestData(),
             verify: {
                 XCTAssertEqual("", $0.arg1)
-                XCTAssertEqual("", $0.arg2)
+                XCTAssertNil($0.arg2)
         }),
     ]
 

@@ -10,8 +10,8 @@ import XCTest
 @testable import Deeplink
 
 fileprivate struct TestData {
-    var arg1: String = ""
-    var arg2: String = ""
+    var arg1: String?
+    var arg2: String?
 }
 
 class DeeplinkDeclarationTests: XCTestCase {

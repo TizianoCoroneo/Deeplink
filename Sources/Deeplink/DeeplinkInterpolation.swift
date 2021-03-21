@@ -20,7 +20,7 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
     /// a literal string `.literal("/sell/")`, an argument `.argument(\.ticket)` and a final `.literal("/regular")`.
     enum Component: Equatable, Hashable, CustomStringConvertible {
         case literal(String)
-        case argument(WritableKeyPath<Value, String>)
+        case argument(WritableKeyPath<Value, String?>)
 
         // MARK: - Methods
 
@@ -32,7 +32,7 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
         }
 
         /// The keypath contained in this component, in case it is an `argument` component. `nil` otherwise.
-        var argumentPath: WritableKeyPath<Value, String>? {
+        var argumentPath: WritableKeyPath<Value, String?>? {
             guard case .argument(let path) = self
                 else { return nil }
             return path
@@ -96,7 +96,7 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
     /// interpolation.appendInterpolation(\.id)
     /// ```
     public mutating func appendInterpolation(
-        _ path: WritableKeyPath<Value, String>
+        _ path: WritableKeyPath<Value, String?>
     ) throws {
         let newComponent: Component = .argument(path)
 

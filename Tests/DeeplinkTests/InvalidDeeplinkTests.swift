@@ -9,8 +9,8 @@ import XCTest
 @testable import Deeplink
 
 fileprivate struct TestData {
-    var arg1: String = ""
-    var arg2: String = ""
+    var arg1: String?
+    var arg2: String?
 }
 
 class InvalidDeeplinkTests: XCTestCase {
@@ -38,8 +38,8 @@ class InvalidDeeplinkTests: XCTestCase {
                     deeplinkError)
         })
 
-        XCTAssertEqual("", result.arg1)
-        XCTAssertEqual("", result.arg2)
+        XCTAssertNil(result.arg1)
+        XCTAssertNil(result.arg2)
     }
 
     func testDoubleArgumentError() {

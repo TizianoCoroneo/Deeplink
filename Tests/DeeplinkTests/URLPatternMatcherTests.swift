@@ -11,11 +11,11 @@ import XCTest
 class URLPathDataTests: XCTestCase {
 
     struct TestData {
-        var test1: String = ""
-        var test2: String = ""
-        var test3: String = ""
-        var test4: String = ""
-        var test5: String = ""
+        var test1: String?
+        var test2: String?
+        var test3: String?
+        var test4: String?
+        var test5: String?
     }
 
     // MARK: - URLPathData Initializer Tests
@@ -316,10 +316,10 @@ class URLPathDataTests: XCTestCase {
             try data.match(components: deeplink.components, into: &test)
 
             XCTAssertEqual("complex", test.test1)
-            XCTAssertEqual("", test.test2)
-            XCTAssertEqual("", test.test3)
-            XCTAssertEqual("", test.test4)
-            XCTAssertEqual("", test.test5)
+            XCTAssertNil(test.test2)
+            XCTAssertNil(test.test3)
+            XCTAssertNil(test.test4)
+            XCTAssertNil(test.test5)
         } catch {
             XCTFail(error.localizedDescription)
         }
@@ -337,10 +337,10 @@ class URLPathDataTests: XCTestCase {
             try data.match(components: deeplink.components, into: &test)
 
             XCTAssertEqual("tickets", test.test1)
-            XCTAssertEqual("", test.test2)
-            XCTAssertEqual("", test.test3)
-            XCTAssertEqual("", test.test4)
-            XCTAssertEqual("", test.test5)
+            XCTAssertNil(test.test2)
+            XCTAssertNil(test.test3)
+            XCTAssertNil(test.test4)
+            XCTAssertNil(test.test5)
         } catch {
             XCTFail(error.localizedDescription)
         }
@@ -358,10 +358,10 @@ class URLPathDataTests: XCTestCase {
             try data.match(components: deeplink.components, into: &test)
 
             XCTAssertEqual("tickets", test.test1)
-            XCTAssertEqual("", test.test2)
-            XCTAssertEqual("", test.test3)
-            XCTAssertEqual("", test.test4)
-            XCTAssertEqual("", test.test5)
+            XCTAssertNil(test.test2)
+            XCTAssertNil(test.test3)
+            XCTAssertNil(test.test4)
+            XCTAssertNil(test.test5)
         } catch {
             XCTFail(error.localizedDescription)
         }
@@ -379,10 +379,10 @@ class URLPathDataTests: XCTestCase {
             try data.match(components: deeplink.components, into: &test)
 
             XCTAssertEqual("a", test.test1)
-            XCTAssertEqual("", test.test2)
-            XCTAssertEqual("", test.test3)
-            XCTAssertEqual("", test.test4)
-            XCTAssertEqual("", test.test5)
+            XCTAssertNil(test.test2)
+            XCTAssertNil(test.test3)
+            XCTAssertNil(test.test4)
+            XCTAssertNil(test.test5)
         } catch {
             XCTFail(error.localizedDescription)
         }
@@ -400,7 +400,7 @@ class URLPathDataTests: XCTestCase {
 
             try data.match(components: deeplink.components, into: &test)
 
-            XCTAssertEqual("", test.test1)
+            XCTAssertNil(test.test1)
             XCTAssertEqual("lp", test.test2)
             XCTAssertEqual("b", test.test3)
             XCTAssertEqual("test1", test.test4)
