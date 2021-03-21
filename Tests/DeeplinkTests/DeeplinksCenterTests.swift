@@ -52,6 +52,15 @@ class DeeplinksCenterTests: XCTestCase {
         var query: String?
     }
 
+    struct CustomData: Equatable {
+        var testData: Int?
+
+        var testDataString: String? {
+            get { testData.map { "\($0)" } }
+            set { testData = newValue.flatMap(Int.init) }
+        }
+    }
+
     let artistDeeplink = try! "/artist/\(\.slug)/\(\.id)"
         as Deeplink<Artist>
 
@@ -84,6 +93,9 @@ class DeeplinksCenterTests: XCTestCase {
 
     let literalDeeplink4 = "/test1/test3"
         as Deeplink<Void>
+
+    let customDataDeeplink = try! "/test/\(\.testDataString)"
+        as Deeplink<CustomData>
 
     func testConsecutiveParsing() {
 
@@ -654,5 +666,52 @@ class DeeplinksCenterTests: XCTestCase {
         XCTAssertNoThrow(try center.parse(url: testURL))
 
         waitForExpectations(timeout: 0.1, handler: nil)
+    }
+
+    func testCustomDataParsing() {
+
+        let expectFirstMatch = expectation(description: "/test/123 should match")
+        let expectSecondMatch = expectation(description: "/test/abc should match")
+
+        let goodURL: URL = "https://ticketswap.com/test/123"
+        let badURL: URL = "https://ticketswap.com/test/abc"
+
+        let center = DeeplinksCenter()
+            .register(
+                deeplink: customDataDeeplink,
+                assigningTo: .init(),
+                ifMatching: { url, value in
+
+                    if url == goodURL {
+                        XCTAssertEqual(123, value.testData)
+                        expectFirstMatch.fulfill()
+                        return true
+                    } else if url == badURL {
+                        XCTAssertNil(value.testData)
+                        expectSecondMatch.fulfill()
+                    }
+
+                    return false
+                })
+
+        XCTAssertNoThrow(try center.parse(url: goodURL))
+        XCTAssertThrowsError(
+            try center.parse(url: badURL),
+            "Should throw \"No matching deeplink\" because we're returning false in the registration closure.",
+            { error in
+                guard let deeplinkError = error as? DeeplinkError
+                else { XCTFail("Error is of wrong type: \(error)"); return }
+
+                print(deeplinkError.localizedDescription)
+
+                XCTAssertEqual(
+                    DeeplinkError.noMatchingDeeplinkFound(
+                        forURL: badURL,
+                        errors: []),
+                    deeplinkError)
+            })
+
+        waitForExpectations(timeout: 0.1, handler: nil)
+
     }
 }
