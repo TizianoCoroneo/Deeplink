@@ -1,10 +1,10 @@
 # 🎣 Deeplink
 
-A microlibrary to parse deeplinks and their arguments using String interpolation.
+A microlibrary to parse deeplinks and their arguments using Swift's String interpolation.
 
 ## [What is deeplinking?](https://branch.io/what-is-deep-linking/)
 
-Mobile app deep links (also known simply as “deep links”) point to content inside an app. If you want to share a pair of shoes from the Jet with a friend, you can send a deep link that brings your friend directly to those shoes in the app. Without a deep link, your friend would have to find the Jet app on the App Store or Play Store, open the app to the homepage, locate the Search function, and then try to find the same pair of shoes you did.
+Mobile app's deep links (also known simply as “deep links”) are URLs that point to content inside an app. If you want to share a pair of shoes from Amazon with a friend, you can send a deep link that brings your friend directly to those shoes in the Amazon app. Without a deep link, your friend would have to find the Amazon app on the App Store or Play Store, open the app to the homepage, locate the Search function, and then try to find the same pair of shoes you found.
 
 This package provides the tools to define a specific deeplink template, pattern match a URL with a deeplink template, and to parse the informations contained in the URL into an object. It does the parsing so you don't have to!
 
@@ -88,6 +88,23 @@ This library lets you take a more declarative approach: just define a list of de
 // This is the object that holds the list of deeplinks to try.
 let center = DeeplinksCenter()
 
+// Data types where to store parsed values
+struct Artist: Equatable {
+    var id: String?
+    var slug: String?
+}
+
+struct Location: Equatable {
+    var id: String?
+    var slug: String?
+    var period: String?
+}
+
+struct Event: Equatable {
+    var id: String?
+    var slug: String?
+}
+
 // Instances where to put the parsed data
 var artist = Artist()
 var location = Location()
@@ -98,6 +115,16 @@ let artistURL = URL(string: "https://ticketswap.com/artist/metallica/123456")!
 let locationURL = URL(string: "https://ticketswap.com/location/amsterdam/1234567/24-06-2019")!
 let eventURL = URL(string: "https://ticketswap.com/event/awakenings/123")!
 
+// Deeplink templates
+let artistDeeplink = try! "/artist/\(\.slug)/\(\.id)"
+    as Deeplink<Artist>
+
+let locationDeeplink = try! "/location/\(\.slug)/\(\.id)/\(\.period)"
+    as Deeplink<Location>
+
+let eventDeeplink = try! "/event/\(\.slug)/\(\.id)"
+    as Deeplink<Event>
+
 // Registering a deeplink template into the center, using the `artistDeeplink` to parse data into the `artist` var, and run the `ifMatching` closure if the template matches a URL.
 center.register(
     deeplink: artistDeeplink,
@@ -105,7 +132,9 @@ center.register(
     ifMatching: { url, newArtist in
 
     // The parsed artist info is available here
-    print("1")
+    if let id = newArtist.id {
+        print(id)
+    }
 })
 
 // Same registration for the location deeplink
@@ -115,7 +144,9 @@ center.register(
     ifMatching: { url, newLocation in
 
     // The parsed location info is available here
-    print("2")
+    if let id = newLocation.id {
+        print(id)
+    }
 })
 
 // Same registration for the event deeplink
@@ -125,15 +156,67 @@ center.register(
     ifMatching: { url, newEvent in
 
     // The parsed event info is available here
-    print("3")
+    if let id = newEvent.id {
+        print(id)
+    }
 })
 
-// This will match the artist deeplink, extract the data and print "1".
+// This will match the artist deeplink, extract the data and print "123456".
 try center.parse(url: artistURL)
 
-// This will match the location deeplink, extract the data and print "2".
+// This will match the location deeplink, extract the data and print "1234567".
 try center.parse(url: locationURL)
 
-// This will match the event deeplink, extract the data and print "3".
+// This will match the event deeplink, extract the data and print "123".
 try center.parse(url: eventURL)
+```
+
+### Result builder
+
+You can take advantage of the shiny new result builders to register your deeplink templates: 
+```swift
+fileprivate struct TestData: DefaultInitializable {
+    var arg1: String?
+    var arg2: String?
+}
+
+fileprivate struct TestData2 {
+    var arg1: String?
+    var arg2: String?
+}
+
+let link1 = "/test/1" as Deeplink<Void>
+let link2 = try "/test/\(\.arg1)/\(\.arg2)" as Deeplink<TestData>
+let link3 = try "/test2/\(\.arg1)/\(\.arg2)" as Deeplink<TestData2>
+
+let center = DeeplinksCenter {
+
+    link1 { url in
+        XCTAssertEqual(url.absoluteString, "https://apple.com/test/1")
+        expectSimpleLink.fulfill()
+        return true
+    }
+
+    link2 { url, value in
+        XCTAssertEqual(url.absoluteString, "https://apple.com/test/a/b")
+        XCTAssertEqual(value.arg1, "a")
+        XCTAssertEqual(value.arg2, "b")
+        expectInitializableDataLink.fulfill()
+        return true
+    }
+
+    link3(
+        assigningTo: .init(arg1: "default", arg2: "default")
+    ) { (url, value) -> Bool in
+        XCTAssertEqual(url.absoluteString, "https://apple.com/test2/a/b")
+        XCTAssertEqual(value.arg1, "a")
+        XCTAssertEqual(value.arg2, "b")
+        expectDataLink.fulfill()
+        return true
+    }
+}
+
+try center.parse(url: URL(string: "https://apple.com/test/1")!)
+try center.parse(url: URL(string: "https://apple.com/test/a/b")!)
+try center.parse(url: URL(string: "https://apple.com/test2/a/b")!)
 ```
