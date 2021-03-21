@@ -150,7 +150,7 @@ public class DeeplinksCenter {
     public func register<Value>(
         deeplinks: [Deeplink<Value>],
         assigningTo: Value,
-        ifMatching completion: @escaping (URL, Value) -> Bool
+        ifMatching completion: @escaping (URL, Value) throws -> Bool
     ) -> DeeplinksCenter {
 
         self.deeplinks.append(contentsOf: deeplinks.map {
@@ -198,12 +198,12 @@ public class DeeplinksCenter {
     @discardableResult
     public func register(
         deeplink: Deeplink<Void>,
-        ifMatching completion: @escaping (URL) -> Bool
+        ifMatching completion: @escaping (URL) throws -> Bool
     ) -> DeeplinksCenter {
         self.register(
             deeplink: deeplink,
             assigningTo: (),
-            ifMatching: { url, _ in completion(url) })
+            ifMatching: { url, _ in try completion(url) })
     }
 
     /// Function to use to add multiple deeplink templates to be recognized when parsing a `URL`, executing the same closure afterwards.
@@ -241,12 +241,12 @@ public class DeeplinksCenter {
     @discardableResult
     public func register(
         deeplinks: [Deeplink<Void>],
-        ifMatching completion: @escaping (URL) -> Bool
+        ifMatching completion: @escaping (URL) throws -> Bool
     ) -> DeeplinksCenter {
         self.register(
             deeplinks: deeplinks,
             assigningTo: (),
-            ifMatching: { url, _ in completion(url) })
+            ifMatching: { url, _ in try completion(url) })
     }
 
     // MARK: - Parse method

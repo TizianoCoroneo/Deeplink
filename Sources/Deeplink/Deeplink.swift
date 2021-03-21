@@ -112,7 +112,7 @@ public extension Deeplink {
     /// - Returns: A `AnyDeeplink` ready to be added to the `DeeplinkCenter`
     func callAsFunction(
         assigningTo value: Value,
-        _ completion: @escaping (URL, Value) -> Bool
+        _ completion: @escaping (URL, Value) throws -> Bool
     ) -> AnyDeeplink {
         AnyDeeplink(
             deeplink: self,
@@ -127,7 +127,7 @@ public extension Deeplink where Value: DefaultInitializable {
     ///   - completion: Closure to run when the deeplink is matched.
     /// - Returns: A `AnyDeeplink` ready to be added to the `DeeplinkCenter`
     func callAsFunction(
-        _ completion: @escaping (URL, Value) -> Bool
+        _ completion: @escaping (URL, Value) throws -> Bool
     ) -> AnyDeeplink {
         AnyDeeplink(
             deeplink: self,
@@ -141,13 +141,13 @@ public extension Deeplink where Value == Void {
     ///   - completion: Closure to run when the deeplink is matched.
     /// - Returns: A `AnyDeeplink` ready to be added to the `DeeplinkCenter`
     func callAsFunction(
-        _ completion: @escaping (URL) -> Bool
+        _ completion: @escaping (URL) throws -> Bool
     ) -> AnyDeeplink {
         AnyDeeplink(
             deeplink: self,
             assigningTo: (),
             ifMatching: { url, _ in
-                completion(url)
+                try completion(url)
             })
     }
 }
