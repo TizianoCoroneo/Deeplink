@@ -60,7 +60,7 @@ public class DeeplinksCenter {
     public func register<Value>(
         deeplink: Deeplink<Value>,
         assigningTo: Value,
-        ifMatching completion: @escaping (URL, Value) -> Bool
+        ifMatching completion: @escaping (URL, Value) throws -> Bool
     ) -> DeeplinksCenter {
         let typeErasedDeeplink = AnyDeeplink(
             deeplink: deeplink,
@@ -220,21 +220,25 @@ public class DeeplinksCenter {
         var errors: [DeeplinkError] = []
         var successfullyParsed = false
 
-        /// Try one deeplink at the time
+        // Try one deeplink at the time
         for link in deeplinks {
             do {
-                /// If it matches, set a flag. The implementation of `AnyDeeplink` is executing the associated closure.
+                // If it matches, set a flag. The implementation of `AnyDeeplink` is executing the associated closure.
                 successfullyParsed = try link.parse(url)
                 if successfullyParsed { break }
 
+            } catch let error as DeeplinkError {
+                // If it doesn't match, keep the error to report it later in case nothing matches.
+                errors.append(error)
+                continue
             } catch {
-                /// If it doesn't match, keep the error to report it later in case nothing matches.
-                errors.append(error as! DeeplinkError)
+                // If the registration closure throws an arbitrary error, pass it along.
+                errors.append(.registrationClosureThrownError(underlying: error))
                 continue
             }
         }
 
-        /// If no link matched the `URL`, throw an error reporting the url and all the reasons why it didn't match any link.
+        // If no link matched the `URL`, throw an error reporting the url and all the reasons why it didn't match any link.
         if !successfullyParsed {
             throw DeeplinkError.noMatchingDeeplinkFound(
                 forURL: url,

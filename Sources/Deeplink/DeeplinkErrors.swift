@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DeeplinkError: LocalizedError, Equatable, Hashable {
+enum DeeplinkError: LocalizedError, Equatable {
     case pathDoesntMatchWithLiteralDeepLink(
         path: String,
         deepLink: String)
@@ -25,6 +25,53 @@ enum DeeplinkError: LocalizedError, Equatable, Hashable {
     case noMatchingDeeplinkFound(
         forURL: URL,
         errors: [DeeplinkError])
+
+    case registrationClosureThrownError(
+        underlying: Error)
+
+    // MARK: - Equatable
+
+    static func ==(_ l: DeeplinkError, _ r: DeeplinkError) -> Bool {
+        switch (l, r) {
+        case let (
+            .pathDoesntMatchWithLiteralDeepLink(path: lPath, deepLink: lLink),
+            .pathDoesntMatchWithLiteralDeepLink(path: rPath, deepLink: rLink)
+        ):
+            return lPath == rPath && lLink == rLink
+
+        case let (
+            .argumentRepeated(argument: lKey),
+            .argumentRepeated(argument: rKey)
+        ):
+            return lKey == rKey
+
+        case let (
+            .cannotSetTwoArgumentsConsecutively(argument1: lArg1, argument2: lArg2),
+            .cannotSetTwoArgumentsConsecutively(argument1: rArg1, argument2: rArg2)
+        ):
+            return lArg1 == rArg1 && lArg2 == rArg2
+
+        case let (
+            .cannotExtractURLComponents(url: lURL),
+            .cannotExtractURLComponents(url: rURL)
+        ):
+            return lURL == rURL
+
+        case let (
+            .noMatchingDeeplinkFound(forURL: lURL, errors: lErrors),
+            .noMatchingDeeplinkFound(forURL: rURL, errors: rErrors)
+        ):
+            return lURL == rURL && lErrors == rErrors
+
+        case let (
+            .registrationClosureThrownError(underlying: lError),
+            .registrationClosureThrownError(underlying: rError)
+        ):
+            return type(of: lError) == type(of: rError)
+
+        default: return false
+        }
+    }
 
     // MARK: - Description
 
@@ -69,6 +116,13 @@ enum DeeplinkError: LocalizedError, Equatable, Hashable {
             \(errors
             .map { $0.localizedDescription }
             .joined(separator: "\n"))
+            """
+
+        case .registrationClosureThrownError(
+            underlying: let error):
+            return """
+            A registration closure threw an error while evaluating a matched value.
+            Thrown error: \(error.localizedDescription)
             """
         }
     }

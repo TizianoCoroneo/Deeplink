@@ -126,10 +126,10 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
         _ url: URL,
         into instance: inout Value
     ) throws {
-        /// Attempt to get information on the url. Throw if it doesn't conform to `RFC 3986`.
+        // Attempt to get information on the url. Throw if it doesn't conform to `RFC 3986`.
         let data = try URLPatternMatcher(url: url)
 
-        /// Use the url data to pattern match the deeplink components.
+        // Use the url data to pattern match the deeplink components.
         try data.match(components: self.components, into: &instance)
     }
 }

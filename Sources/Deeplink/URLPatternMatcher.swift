@@ -86,39 +86,39 @@ struct URLPatternMatcher: Equatable, Hashable {
         forComponents components: [DeeplinkInterpolation<Value>.Component]
     ) throws -> [String] {
 
-        /// Grab all the deeplink components that are literals.
+        // Grab all the deeplink components that are literals.
         let literals = components
             .compactMap { $0.literalPath }
 
-        /// Split the relative part of the URL to parse using the list of literals, one at the time:
-        /// The string `1234567890` split with the literals `["2", "6"]` would return `["1", "345", "7890"]`.
+        // Split the relative part of the URL to parse using the list of literals, one at the time:
+        // The string `1234567890` split with the literals `["2", "6"]` would return `["1", "345", "7890"]`.
         var segments: [String] = try splitRelativeStringWith(
             literals: literals,
             relativeString: relativeString)
 
-        /// If argument segments are found, perform extra checks.
+        // If argument segments are found, perform extra checks.
         if !segments.isEmpty {
 
-            /// Remove from the last one all characters found after the first occurrence of one of the "reserved" characters.
+            // Remove from the last one all characters found after the first occurrence of one of the "reserved" characters.
             segments[segments.count - 1] = segments[segments.count - 1]
                 .removeAfterAnyCharacterIn(string: reservedURLCharacters)
 
-            /// If the first segment is empty, it means that the first literal component was at the beginning of the URL to parse. Remove it.
+            // If the first segment is empty, it means that the first literal component was at the beginning of the URL to parse. Remove it.
             if segments[0].isEmpty {
                 segments.removeFirst()
 
             } else {
-                /// Otherwise there is an extra prefix before the match with the first literal.
-                /// Throw non-matching paths error.
+                // Otherwise there is an extra prefix before the match with the first literal.
+                // Throw non-matching paths error.
                 throw DeeplinkError.pathDoesntMatchWithLiteralDeepLink(
                     path: segments[0],
                     deepLink: DeeplinkInterpolation(components: components).description)
             }
         }
 
-        /// If we found more segments than arguments, remove the extra segments.
-        /// This is needed in case we have an argument component that evaluates to an empty string, to avoid assigning an "out of bounds" value to it.
-        /// Just comment the next three lines and run the tests to see what I mean.
+        // If we found more segments than arguments, remove the extra segments.
+        // This is needed in case we have an argument component that evaluates to an empty string, to avoid assigning an "out of bounds" value to it.
+        // Just comment the next three lines and run the tests to see what I mean.
         let arguments = components.compactMap { $0.argumentPath }
         if segments.count > arguments.count {
             segments.removeLast(segments.count - arguments.count)
@@ -136,14 +136,14 @@ struct URLPatternMatcher: Equatable, Hashable {
         into instance: inout Value
     ) throws {
 
-        /// Grab all the keypaths in the interpolation pattern
+        // Grab all the keypaths in the interpolation pattern
         let keypaths = components
             .compactMap { $0.argumentPath }
 
-        /// Grab all the argument segments from the `relativeString`.
+        // Grab all the argument segments from the `relativeString`.
         let segments = try findArgumentsSegments(forComponents: components)
 
-        /// For each keypath, assign its corresponding value to the `instance` object.
+        // For each keypath, assign its corresponding value to the `instance` object.
         zip(keypaths, segments).forEach {
             let (keyPath, segment) = $0
             instance[keyPath: keyPath] = segment

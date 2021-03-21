@@ -20,12 +20,12 @@ struct AnyDeeplink {
     init<Value>(
         deeplink: Deeplink<Value>,
         assigningTo instance: Value,
-        ifMatching completion: @escaping (URL, Value) -> Bool
+        ifMatching completion: @escaping (URL, Value) throws -> Bool
     ) {
         self.parseURLIntoInstance = { url in
             var newInstance = instance
             try deeplink.parse(url, into: &newInstance)
-            return completion(url, newInstance)
+            return try completion(url, newInstance)
         }
     }
 }

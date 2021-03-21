@@ -676,6 +676,8 @@ class DeeplinksCenterTests: XCTestCase {
         let goodURL: URL = "https://ticketswap.com/test/123"
         let badURL: URL = "https://ticketswap.com/test/abc"
 
+        struct NoIntFoundError: Error {}
+
         let center = DeeplinksCenter()
             .register(
                 deeplink: customDataDeeplink,
@@ -685,13 +687,13 @@ class DeeplinksCenterTests: XCTestCase {
                     if url == goodURL {
                         XCTAssertEqual(123, value.testData)
                         expectFirstMatch.fulfill()
-                        return true
                     } else if url == badURL {
                         XCTAssertNil(value.testData)
                         expectSecondMatch.fulfill()
+                        throw NoIntFoundError()
                     }
 
-                    return false
+                    return true
                 })
 
         XCTAssertNoThrow(try center.parse(url: goodURL))
@@ -707,7 +709,10 @@ class DeeplinksCenterTests: XCTestCase {
                 XCTAssertEqual(
                     DeeplinkError.noMatchingDeeplinkFound(
                         forURL: badURL,
-                        errors: []),
+                        errors: [
+                            .registrationClosureThrownError(
+                                underlying: NoIntFoundError())
+                        ]),
                     deeplinkError)
             })
 
