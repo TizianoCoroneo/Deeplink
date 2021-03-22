@@ -42,7 +42,7 @@ struct TestData {
     var text: String?
 }
 
-let myTestDeeplink: Deeplink<TestData> = try! "/test/\(\.id)/\(.text)"
+let myTestDeeplink: Deeplink<TestData> = try! "/test/\(\.id)/\(\.text)"
 ```
 
 The interpolation part requires a `WritableKeyPath<Value, String?>` where `Value` is your custom type. The property needs to be of type `String?`, and needs to be a `var` to let the library write the new value into it. 
@@ -59,7 +59,7 @@ And it is able to extract the path components `123` and `abc`, and assign them t
 ```swift
 
 // Define the deeplink
-let myTestDeeplink: Deeplink<TestData> = try! "/test/\(\.id)/\(.text)"
+let myTestDeeplink: Deeplink<TestData> = try! "/test/\(\.id)/\(\.text)"
 
 // Example URL
 let url = URL(string: "https://ticketswap.com/test/123/abc")!
