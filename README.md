@@ -5,7 +5,7 @@ A microlibrary to parse deeplinks and their arguments using Swift's String inter
 
 <a href="https://github.com/TizianoCoroneo/Deeplink/actions?query=workflow%3ATest"><img alt="GitHub Actions status" src="https://github.com/TizianoCoroneo/Deeplink/workflows/Test/badge.svg?branch=main&event=push"></a> <img src="https://img.shields.io/badge/Swift-5.4-orange.svg" /> <a href="https://swift.org/package-manager"><img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" /></a> <a href="https://twitter.com/TizianoCoroneo"><img src="https://img.shields.io/badge/contact-@TizianoCoroneo-blue.svg?style=flat" alt="Twitter: @TizianoCoroneo" /></a>
 
-## Why are the tests failing?
+### Why are the tests failing?
 
 The main branch is using Swift 5.4 to fix a warning, which requires Xcode 12.5, which requires macOS 11 Big Sur. [GitHub actions do not support Big Sur and Xcode 12.5 yet](https://github.com/actions/virtual-environments/issues/2486).
 Use version `0.1.0` if you want a Swift 5.3 version that passes the tests.
