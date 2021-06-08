@@ -156,6 +156,10 @@ center.register(
     if let id = newArtist.id {
         print(id)
     }
+    
+    // Indicates that we successfully handled the URL.
+    // Returning `false` makes the center evaluate the rest of the list of registered deeplinks.
+    return true
 })
 
 // Same registration for the location deeplink
@@ -168,6 +172,8 @@ center.register(
     if let id = newLocation.id {
         print(id)
     }
+    
+    return true
 })
 
 // Same registration for the event deeplink
@@ -180,6 +186,8 @@ center.register(
     if let id = newEvent.id {
         print(id)
     }
+    
+    return true
 })
 
 // This will match the artist deeplink, extract the data and print "123456".
