@@ -1,0 +1,14 @@
+@Tutorials(name: "Documentation") {
+    @Intro(title: "All about Deeplinks") {
+        These tutorials will explain how to add deeplinks to your app, and how to manage more complex situations like overlapping deeplink templates or choosing at runtime whether to match a URL or not.
+    }
+    
+    @Chapter(name: "Using the library") {
+        This chapter is all about how to use the library: from the basics to more advanced usage.
+        
+        @Image(source: "", alt: "")
+        
+        @TutorialReference(tutorial: "doc:AddingADeeplink")
+        @TutorialReference(tutorial: "doc:AdvancedUsage")
+    }
+}

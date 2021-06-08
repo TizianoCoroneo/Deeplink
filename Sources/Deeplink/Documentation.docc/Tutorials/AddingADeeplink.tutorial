@@ -1,0 +1,79 @@
+@Tutorial(time: 10) {
+    @Intro(title: "Adding Deeplinks") {
+        This tutorial will explain how to add deeplinks to your app and how to handle overlapping deeplink templates.
+    }
+    
+    @Section(title: "Adding one deeplink") {
+        We'll start by adding a single deeplink: a link to view a product page.
+        
+        The link we want to support looks like this: `https://example.com/product/123`.
+        
+        @Steps {
+            @Step {
+                Define the data you want to extract from the deeplink URL. 
+                
+                In our case, we want to get the `productId`, so that we can fetch the informations for that product from the server and display the product page. Declare your properties as optionals. The reason will become clear later 😇
+                
+                @Code(name: "Defining Deeplink Data.swift", file: "AddingADeeplink 1.swift")
+            }
+            
+            @Step {
+                Define a template that describes how to parse the deeplink.
+                
+                Using Swift's `String` interpolation and `KeyPath`s we can define a "Deeplink Template" that tells the system how to parse data from a URL. 
+                The data present in the URL at the location where the keypath is inserted will be assigned to the property indicated by the keypath.
+                
+                @Code(name: "Defining Deeplink Data.swift", file: "AddingADeeplink 2.swift")
+            }
+            
+            @Step {
+                Register the template with the notification center.
+                
+                You need to provide 3 things: the deeplink template that you want to eventually parse URLs with, an object where to assign values extracted from the deeplink URL, and a closure to execute if the template finds a successful match.  
+                
+                @Code(name: "Defining Deeplink Data.swift", file: "AddingADeeplink 3.swift")
+            }
+            
+            @Step {
+                Parse a `URL` using the `DeeplinkCenter`.
+                
+                You can now use the DeeplinkCenter to parse URLs. The center will try all the registered templates in order, running the closure you provide in the registration if the corresponding template matches. Once one closure is run successfully, execution ends.
+                
+                @Code(name: "Defining Deeplink Data.swift", file: "AddingADeeplink 4.swift")
+            }
+        }
+    }
+    
+    @Section(title: "Adding more deeplinks") {
+        Now let's add more deeplinks: we'll add one for opening the Account page and one to open the product detail page.
+        
+        The links we want to support are in this format: `https://example.com/account` and `https://example.com/product/123abc/detail`
+        
+        @Steps {
+            @Step {
+                Let's define the data that we want to extract. 
+                
+                This time, the account deeplink template has no data to extract: in this case, you can define a `Deeplink<Void>` and you don't need to use keypaths or string interpolation. About the product detail, we case reuse the Product struct since we need to extract the same argument.
+                
+                @Code(name: "Defining Deeplink Data.swift", file: "AddingMultipleDeeplinks 1.swift")
+            }
+            
+            @Step {
+                Now we should register the deeplinks to the center. Let's do in the same order in which we declared the deeplinks.
+                
+                This implementation has a problem: the registered deeplinks are evaluated in order one at the time until a match is found. Our problem is that the `/product/123/detail` route will never be triggered because the template `/product/\(\.productId)` already always matches that route. 
+                
+                @Code(name: "Defining Deeplink Data.swift", file: "AddingMultipleDeeplinks 2.swift")
+            }
+            
+            @Step {
+                The solution is to change the order of the registered templates: the more "specific" a template is, the closer it should be to the center.  
+                
+                This way, the more specific "Product Detail" deeplink template is checked before the more generic "Product" deeplink.
+                You can use this behavior to do interesting things: for example, a very generic template could behave as "catch-all" behavior for unrecognized deeplink URLs.
+                
+                @Code(name: "Defining Deeplink Data.swift", file: "AddingMultipleDeeplinks 3.swift")
+            }
+        }
+    }
+}
