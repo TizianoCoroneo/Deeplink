@@ -122,6 +122,8 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
     /// - Parameters:
     ///   - url: `URL` to parse. Needs to conform to `RFC 3986`.
     ///   - instance: The object to which the argument values will be assigned.
+    ///
+    /// - Throws: a `DeeplinkError` if we cannot parse relative path, query items or fragments from the URL, or if there is no valid match.
     func parse(
         _ url: URL,
         into instance: inout Value

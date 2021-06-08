@@ -31,6 +31,8 @@ struct URLPatternMatcher: Equatable, Hashable {
     }
 
     /// Initialize a `URLPatternMatcher` with a `URL`, stripping away user, scheme and host `URL` components to only get the relative part of it.
+    ///
+    /// - Throws: a `DeeplinkError.cannotExtractURLComponents(url: url)` if it cannot extract relative path + query items and fragments from the provided `URL`.
     init(
         url: URL
     ) throws {
@@ -82,6 +84,8 @@ struct URLPatternMatcher: Equatable, Hashable {
     /// ```
     ///
     /// - Parameter components: List of deeplink components to match.
+    ///
+    /// - Throws: a `DeeplinkError.pathDoesntMatchWithLiteralDeepLink` if there is no valid match for a segment.
     func findArgumentsSegments<Value>(
         forComponents components: [DeeplinkInterpolation<Value>.Component]
     ) throws -> [String] {
@@ -131,6 +135,8 @@ struct URLPatternMatcher: Equatable, Hashable {
     /// - Parameters:
     ///   - components: List of deeplink components to match.
     ///   - instance: Instance to assign extraceted values to.
+    ///
+    /// - Throws: A `DeeplinkError` if there is no valid match for a segment.
     func match<Value>(
         components: [DeeplinkInterpolation<Value>.Component],
         into instance: inout Value

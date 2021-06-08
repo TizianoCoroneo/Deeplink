@@ -83,6 +83,12 @@ extension Deeplink: ExpressibleByStringInterpolation {
 
 public extension Deeplink {
     /// Attempt to parse a `URL` by using the current deeplink. In case of success, the argument found by the pattern matching will be assigned to their corresponding keypath to the `instance` object.
+    ///
+    /// - Parameters:
+    ///   - url: the `URL` to parse.
+    ///   - into: the `Value` instance we will assign the parameters values to if the URL matches this deeplink template.
+    ///
+    /// - Throws: a `DeeplinkError` if we cannot parse relative path, query items or fragments from the URL, or if there is no valid match.
     func parse(
         _ url: URL,
         into instance: inout Value
@@ -93,6 +99,8 @@ public extension Deeplink {
 
 public extension Deeplink where Value == Void {
     /// Attempt to parse a `URL` by using the current deeplink. This is a utility for literal deeplinks that do not contain any argument, as they don't need an instance to assign values to.
+    ///
+    /// - Throws: a `DeeplinkError` if we cannot parse relative path, query items or fragments from the URL, or if there is no valid match.
     func parse(
         _ url: URL
     ) throws {
