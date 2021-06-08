@@ -8,28 +8,28 @@
 import Foundation
 
 @resultBuilder
-struct DeeplinkBuilder {
+public struct DeeplinkBuilder {
     // https://github.com/apple/swift-evolution/blob/main/proposals/0289-result-builders.md
 
     /// The type of a partial result, which will be carried through all of the
     /// build methods.
-    typealias Component = [AnyDeeplink]
+    public typealias Component = [AnyDeeplink]
 
     /// Required by every result builder to build combined results from
     /// statement blocks.
-    static func buildBlock(_ components: Component...) -> Component {
+    public static func buildBlock(_ components: Component...) -> Component {
         components.flatMap { $0 }
     }
 
     /// If declared, provides contextual type information for statement
     /// expressions to translate them into partial results.
-    static func buildExpression(
+    public static func buildExpression(
         _ anyDeeplink: AnyDeeplink
     ) -> Component {
         [anyDeeplink]
     }
 
-    static func buildExpression(
+    public static func buildExpression(
         _ anyDeeplink: AnyDeeplink?
     ) -> Component {
         guard let component = anyDeeplink else { return [] }
@@ -37,27 +37,27 @@ struct DeeplinkBuilder {
     }
 
     /// Enables support for `if` statements that do not have an `else`.
-    static func buildOptional(_ component: Component?) -> Component {
+    public static func buildOptional(_ component: Component?) -> Component {
         guard let component = component else { return [] }
         return component
     }
 
     /// With buildEither(second:), enables support for 'if-else' and 'switch'
     /// statements by folding conditional results into a single result.
-    static func buildEither(first component: Component) -> Component {
+    public static func buildEither(first component: Component) -> Component {
         component
     }
 
     /// With buildEither(first:), enables support for 'if-else' and 'switch'
     /// statements by folding conditional results into a single result.
-    static func buildEither(second component: Component) -> Component {
+    public static func buildEither(second component: Component) -> Component {
         component
     }
 
     // Requires Swift 5.4
     /// Enables support for 'for..in' loops by combining the
     /// results of all iterations into a single result.
-    static func buildArray(_ components: [Component]) -> Component {
+    public static func buildArray(_ components: [Component]) -> Component {
         components.flatMap { $0 }
     }
 
@@ -65,7 +65,7 @@ struct DeeplinkBuilder {
     /// If declared, this will be called on the partial result of an `if
     /// #available` block to allow the result builder to erase type
     /// information.
-    static func buildLimitedAvailability(_ component: Component) -> Component {
+    public static func buildLimitedAvailability(_ component: Component) -> Component {
         component
     }
 }
