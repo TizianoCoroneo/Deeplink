@@ -7,7 +7,7 @@
 
 import Foundation
 import XCTest
-@testable import Deeplink
+import Deeplink
 
 fileprivate struct TestData: DefaultInitializable {
     var arg1: String?
