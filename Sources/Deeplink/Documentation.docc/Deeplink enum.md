@@ -6,6 +6,8 @@ An `enum` that represents a deeplink template.
 
 You can define one of these and use it to check if a URL matches the same pattern, and extract some information from it.
 
+![Example of a URL that contains one parameter.](ExampleURL)
+
 ```swift
 struct Product {
     var productId: String?
