@@ -11,6 +11,10 @@ To support deeplinking in your app you just need to follow these steps:
 - Register behaviors for each template using the ``DeeplinksCenter`` `register` methods.
 - You're ready to parse URLs now 🙌! Follow the tutorial for more details and examples.
 
+When parsing a URL, the parameter is associated with the KeyPath that occupies the same location in the URL: if the match is successful, the value of the parameter will be assigned to an instance of the Deeplink's `Value` type, to the corresponding keypath.
+
+![How data goes from inside the URL to inside your model object](ExampleParsing)
+
 ## Topics
 
 ### Essentials
