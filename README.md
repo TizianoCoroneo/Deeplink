@@ -10,6 +10,8 @@ A microlibrary to parse deeplinks and their arguments using Swift's String inter
 The main branch is using Swift 5.4 to fix a warning, which requires Xcode 12.5, which requires macOS 11 Big Sur. [GitHub actions do not support Big Sur and Xcode 12.5 yet](https://github.com/actions/virtual-environments/issues/2486).
 Use version `0.1.0` if you want a Swift 5.3 version that passes the tests.
 
+At this point I'm actually waiting to move onto Xcode Cloud. I already requested access.
+
 ## [What is deeplinking?](https://branch.io/what-is-deep-linking/)
 
 Mobile app's deep links (also known simply as “deep links”) are URLs that point to content inside an app. If you want to share a pair of shoes from Amazon with a friend, you can send a deep link that brings your friend directly to those shoes in the Amazon app. Without a deep link, your friend would have to find the Amazon app on the App Store or Play Store, open the app to the homepage, locate the Search function, and then try to find the same pair of shoes you found.
@@ -26,6 +28,8 @@ To install `Deeplink` for use in an app, command line tool or server-side applic
 ```
 
 ## Using this library
+
+In addition to the examples below, there is a shiny new `.doccarchive` file in the repo that will let you see Deeplink's documentation and a couple cool tutorials directly in Xcode's documentation window. Just double click the `Deeplink.doccarchive` file to get started (if you have Xcode 13).
 
 ### Defining deeplinks
 
