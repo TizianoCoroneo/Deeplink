@@ -37,6 +37,20 @@ let badDeeplink2: Deeplink<Product> = try! "/product/\(\.productId)\(\.productId
 
 ## Topics
 
-### <!--@START_MENU_TOKEN@-->Group<!--@END_MENU_TOKEN@-->
+### Create a Deeplink template
 
-- <!--@START_MENU_TOKEN@-->``Symbol``<!--@END_MENU_TOKEN@-->
+Don't use these initializer directly, use String literals and String interpolation instead.
+
+- ``Deeplink/Deeplink/init(stringLiteral:)``
+- ``Deeplink/Deeplink/init(stringInterpolation:)``
+
+### Parse a URL
+
+- ``Deeplink/Deeplink/parse(_:)``
+- ``Deeplink/Deeplink/parse(_:into:)``
+
+### DeeplinkBuilder closures
+
+- ``callAsFunction(_:)-9eb8h``
+- ``callAsFunction(_:)-34acp``
+- ``callAsFunction(assigningTo:_:)``
