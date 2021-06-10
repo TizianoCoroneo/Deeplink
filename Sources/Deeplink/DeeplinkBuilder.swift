@@ -7,6 +7,9 @@
 
 import Foundation
 
+/// A `@resultBuilder` that allows you to register deeplink templates using a DSL-like syntax.
+///
+/// See <doc:Using-a-ResultBuilder> for more information.
 @resultBuilder
 public struct DeeplinkBuilder {
     // https://github.com/apple/swift-evolution/blob/main/proposals/0289-result-builders.md

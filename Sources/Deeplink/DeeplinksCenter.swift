@@ -33,22 +33,22 @@ public class DeeplinksCenter {
 
      let center = DeeplinksCenter {
 
-     link1 { url in
-     // Do something
-     return true
-     }
+         link1 { url in
+             // Do something
+             return true
+         }
 
-     link2 { url, value in
-     // Do something
-     return true
-     }
+         link2 { url, value in
+             // Do something
+             return true
+         }
 
-     link3(
-     assigningTo: .init(arg1: "default", arg2: "default")
-     ) { (url, value) -> Bool in
-     // Do something
-     return true
-     }
+         link3(
+             assigningTo: .init(arg1: "default", arg2: "default")
+         ) { (url, value) -> Bool in
+             // Do something
+             return true
+         }
      }
      ```
      - Parameter builder: Closure that builds a list of deeplinks using ``Deeplink/DeeplinkBuilder``.
