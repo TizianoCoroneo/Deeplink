@@ -51,7 +51,9 @@ public class DeeplinksCenter {
          }
      }
      ```
-     - Parameter builder: Closure that builds a list of deeplinks using ``Deeplink/DeeplinkBuilder``.
+
+     - Parameters:
+         - builder: Closure that builds a list of deeplinks using ``Deeplink/DeeplinkBuilder``.
      **/
     public convenience init(
         @DeeplinkBuilder _ builder: () -> [AnyDeeplink]

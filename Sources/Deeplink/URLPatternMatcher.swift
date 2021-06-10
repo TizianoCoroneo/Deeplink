@@ -134,7 +134,7 @@ struct URLPatternMatcher: Equatable, Hashable {
     /// Use the relative path information in this `URLPatternMatcher` to extract the strings to be assigned to the interpolation keypaths.
     /// - Parameters:
     ///   - components: List of deeplink components to match.
-    ///   - instance: Instance to assign extraceted values to.
+    ///   - instance: Instance to assign extracted values to.
     ///
     /// - Throws: A `DeeplinkError` if there is no valid match for a segment.
     func match<Value>(

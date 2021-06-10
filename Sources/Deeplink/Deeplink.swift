@@ -48,7 +48,7 @@ public enum Deeplink<Value>: Equatable, Hashable {
 // MARK: - ExpressibleByStringLiteral
 
 extension Deeplink: ExpressibleByStringLiteral {
-    /// Intialize a deeplink template with a `String` literal. This will simply attempt to pattern match this string with the `URL` passed to the `parse(_:into:)` function.
+    /// Initialize a deeplink template with a `String` literal. This will simply attempt to pattern match this string with the `URL` passed to the `parse(_:into:)` function.
     public init(
         stringLiteral value: StringLiteralType
     ) {
@@ -59,7 +59,7 @@ extension Deeplink: ExpressibleByStringLiteral {
 // MARK: - ExpressibleByStringInterpolation
 
 extension Deeplink: ExpressibleByStringInterpolation {
-    /// Intialize a deeplink template with a string interpolation pattern. This will attempt to pattern match the string components of the interpolation, while assigning the extra parts of the URL to the property specified by keypaths from the argument components.
+    /// Initialize a deeplink template with a string interpolation pattern. This will attempt to pattern match the string components of the interpolation, while assigning the extra parts of the URL to the property specified by keypaths from the argument components.
     ///
     /// Example:
     /// the deeplink `"/sell/\(\.ticketId)"` will match these URLs:
