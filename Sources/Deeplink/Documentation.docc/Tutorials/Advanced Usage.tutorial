@@ -1,4 +1,4 @@
-@Tutorial(time: 10) {
+@Tutorial(time: 20) {
     @Intro(title: "Advanced Usage") {
         This tutorial is a small collection of advanced tips and tricks.
     }
@@ -59,6 +59,34 @@
                 We can make Product conform to ``Deeplink/DefaultInitializable`` so that we don't have to pass an instance at registration time, but a new instance will be generated every time you need to parse a URL.
                 
                 @Code(name: "DefaultInitializable demo.swift", file: "AdvancedUsage 6.swift")
+            }
+        }
+    }
+    
+    @Section(title: "Registering Deeplinks with a ResultBuilder") {
+        If you need advanced behaviors, you can also register your ``Deeplink/Deeplink`` templates using a `@resultBuilder`.
+        
+        @Steps {
+            @Step {
+                You can use the ``Deeplink/DeeplinksCenter/init(_:)`` initializer to open a closure where you can register deeplinks in a different way.
+                
+                Registering a literal deeplink template with no arguments only gives you back the URL, in case of a match.
+                
+                @Code(name: "ResultBuilder demo.swift", file: "ResultBuilder 1.swift")
+            }
+            
+            @Step {
+                Registering a deeplink template with arguments is very similar, but you will get a `Value` inside the closure as well.
+                
+                @Code(name: "ResultBuilder demo.swift", file: "ResultBuilder 2.swift")
+            }
+            
+            @Step {
+                Since our old `TestData` type conforms to ``Deeplink/DefaultInitializable``, we don't need to provide an instance to assign values to.
+                
+                In case we cannot conform to this protocol, we can still provide an instance using this other overload.
+                
+                @Code(name: "ResultBuilder demo.swift", file: "ResultBuilder 3.swift")
             }
         }
     }
