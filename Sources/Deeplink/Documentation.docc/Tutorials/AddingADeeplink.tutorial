@@ -12,7 +12,7 @@
             @Step {
                 Define the data you want to extract from the deeplink URL. 
                 
-                In our case, we want to get the `productId`, so that we can fetch the informations for that product from the server and display the product page. Declare your properties as optionals. The reason will become clear later 😇
+                In our case, we want to get the `productId`, so that we can fetch the informations for that product from the server and display the product page. You should declare your properties as optionals. The reason will become clear later 😇
                 
                 @Code(name: "Defining Deeplink Data.swift", file: "AddingADeeplink 1.swift")
             }
@@ -74,6 +74,12 @@
                 
                 @Code(name: "Defining Deeplink Data.swift", file: "AddingMultipleDeeplinks 3.swift")
             }
+            
+            Now let's give a look at why the Deeplink's `Value` parameters should be optional.
+            
+            The reason is that it allows you to tell the difference between an empty parameter and an absent parameter:
+            - if you have a URL like `/product?query=&price=10`, the `query` parameter is present but empty. A template like `/product?query=\(\.query)` will produce a value of `""` for `query`, since it is present but empty.
+            - the same URL, when parsed by the template `/product`, doesn't assign any value to `\.query`, leaving it `nil` so that we know that the parameter wasn't used in the first place.
         }
     }
 }

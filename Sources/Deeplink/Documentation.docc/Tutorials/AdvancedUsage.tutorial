@@ -4,7 +4,7 @@
     }
         
     @Section(title: "Altering the matching behavior") {
-        In normal usage of this library, you `return true` from the `ifMatching` closure on the ``DeeplinksCenter`` `register` methods.
+        In normal usage of this library, you `return true` from the `ifMatching` closure on the ``Deeplink/DeeplinksCenter`` `register` methods.
         
         What if we returned false? Why would you do that?
         
@@ -28,7 +28,7 @@
             @Step {
                 Or we can register the same deeplink template twice.
                 
-                In the first registration we check `isMagicOn` and we only continue if it is `true`. This means that if the other registration will only ever be executed if `isMagicOn` is `false`, since ``DeeplinksCenter`` will stop evaluating templates at the first successful match. This also makes it really easy to remove the Magic part if... needed.
+                In the first registration we check `isMagicOn` and we only continue if it is `true`. This means that if the other registration will only ever be executed if `isMagicOn` is `false`, since ``Deeplink/DeeplinksCenter`` will stop evaluating templates at the first successful match. This also makes it really easy to remove the Magic part if... needed.
                 
                 @Code(name: "Altering matching.swift", file: "AdvancedUsage 3.swift")
             }
@@ -44,7 +44,7 @@
     @Section(title: "Using DefaultInitializable") {
         "Why do I have to pass an instance of my value to the register function?"
         
-        The problem is that the library needs an initialized object to assign values to. That's it: or you give an initialized object, or you define a struct that conforms to the utility protocol `DefaultInitializable`, which only requirement is a empty `init()`.
+        The problem is that the library needs an initialized object to assign values to. That's it: or you give an initialized object, or you define a struct that conforms to the utility protocol ``Deeplink/DefaultInitializable``, which only requirement is a empty `init()`.
         
         @Steps {
             @Step {
@@ -56,7 +56,7 @@
             }
             
             @Step {
-                We can make Product conform to `DefaultInitializable` so that we don't have to pass an instance at registration time, but a new instance will be generated every time you need to parse a URL.
+                We can make Product conform to ``Deeplink/DefaultInitializable`` so that we don't have to pass an instance at registration time, but a new instance will be generated every time you need to parse a URL.
                 
                 @Code(name: "DefaultInitializable demo.swift", file: "AdvancedUsage 6.swift")
             }
