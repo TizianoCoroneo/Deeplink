@@ -15,7 +15,7 @@ It does the parsing so you don't have to!
 
 ### Using this library
 
-Follow the shiny new DocC tutorial: <doc:Tutorial-Table-of-Contents>!
+Follow the shiny new DocC tutorial: <doc:Table-of-Contents>!
 
 ### Installing
 

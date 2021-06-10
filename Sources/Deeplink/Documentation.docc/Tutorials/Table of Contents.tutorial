@@ -1,15 +1,15 @@
-@Tutorials(name: "Documentation") {
-    @Intro(title: "All about Deeplinks") {
+@Tutorials(name: "Documentation") {    
+    @Intro(title: "🎣 All about Deeplinks") {
         These tutorials will explain how to add deeplinks to your app, and how to manage more complex situations like overlapping deeplink templates or choosing at runtime whether to match a URL or not.
     }
     
     @Chapter(name: "Using the library") {
         This chapter is all about how to use the library: from the basics to more advanced usage.
         
-        @Image(source: "Visual", alt: "A visual representation of transforming some parameters in a URL into values assigned to specific properties of a struct.")
+        @Image(source: "Visual.png", alt: "A visual representation of transforming some parameters in a URL into values assigned to specific properties of a struct.")
         
-        @TutorialReference(tutorial: "doc:AddingADeeplink")
-        @TutorialReference(tutorial: "doc:AdvancedUsage")
+        @TutorialReference(tutorial: "doc:Adding-a-Deeplink")
+        @TutorialReference(tutorial: "doc:Advanced-Usage")
     }
     
     @Resources {

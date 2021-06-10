@@ -8,7 +8,7 @@ Register deeplinks and parse URLs.
 
 ## Overview
 
-The ``DeeplinksCenter`` is the object you use to register behaviors for your ``Deeplink`` templates: when a template matches the URL you're parsing, the `ifMatching` closure on the `register` method is triggered.
+The ``DeeplinksCenter`` is the object you use to register behaviors for your ``Deeplink/Deeplink`` templates: when a template matches the URL you're parsing, the `ifMatching` closure on the `register` method is triggered.
 
 Then, you can use the `parse` method to attempt matching a URL against the list of registered deeplink templates you built.
 
@@ -16,16 +16,16 @@ Then, you can use the `parse` method to attempt matching a URL against the list 
 
 ### Initialize a center
 
-- ``DeeplinksCenter/init()``
-- ``DeeplinksCenter/init(_:)``
+- ``init()``
+- ``init(_:)``
 
 ### Registering deeplinks
 
-- ``DeeplinksCenter/register(deeplink:assigningTo:ifMatching:)``
-- ``DeeplinksCenter/register(deeplink:ifMatching:)``
-- ``DeeplinksCenter/register(deeplinks:assigningTo:ifMatching:)``
-- ``DeeplinksCenter/register(deeplinks:ifMatching:)``
+- ``register(deeplink:assigningTo:ifMatching:)``
+- ``register(deeplink:ifMatching:)``
+- ``register(deeplinks:assigningTo:ifMatching:)``
+- ``register(deeplinks:ifMatching:)``
 
 ### Parsing URLs
 
-- ``DeeplinksCenter/parse(url:)``
+- ``parse(url:)``

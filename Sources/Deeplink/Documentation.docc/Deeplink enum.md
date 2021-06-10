@@ -34,7 +34,7 @@ The string interpolation initializer `throws` because there are a couple cases t
 
 ```swift
 let badDeeplink1: Deeplink<Product> = try! "/product/\(\.productId)\(\.name)"
-let badDeeplink2: Deeplink<Product> = try! "/product/\(\.productId)\(\.productId)"
+let badDeeplink2: Deeplink<Product> = try! "/product/\(\.productId)/\(\.productId)"
 ```
 
 ## Topics
@@ -43,13 +43,13 @@ let badDeeplink2: Deeplink<Product> = try! "/product/\(\.productId)\(\.productId
 
 Don't use these initializer directly, use String literals and String interpolation instead.
 
-- ``Deeplink/Deeplink/init(stringLiteral:)``
-- ``Deeplink/Deeplink/init(stringInterpolation:)``
+- ``init(stringLiteral:)``
+- ``init(stringInterpolation:)``
 
 ### Parse a URL
 
-- ``Deeplink/Deeplink/parse(_:)``
-- ``Deeplink/Deeplink/parse(_:into:)``
+- ``parse(_:)``
+- ``parse(_:into:)``
 
 ### DeeplinkBuilder closures
 
