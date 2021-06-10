@@ -36,7 +36,7 @@ If you use Xcode 13, you can use `.upToNextMinor(from: "0.2.0")`.
 
 ## Using this library
 
-In addition to the examples below, there is a shiny new `.doccarchive` file in the repo that will let you see Deeplink's documentation and a couple cool tutorials directly in Xcode's documentation window. Just double click the `Deeplink.doccarchive` file to get started (if you have Xcode 13).
+In addition to the examples below, there is a shiny new DocC documentation that will let you see Deeplink's doccomments and a couple cool tutorials directly in Xcode's documentation window. Just select the option `Product > Build Documentation` to get started (if you have Xcode 13).
 
 ### Defining deeplinks
 
