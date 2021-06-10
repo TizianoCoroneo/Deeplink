@@ -133,7 +133,7 @@ public extension Deeplink where Value: DefaultInitializable {
     /// Embeds the action to take when matching this deeplink into the deeplink itself, producing a AnyDeeplink instance.
     /// - Parameters:
     ///   - completion: Closure to run when the deeplink is matched.
-    /// - Returns: A ``Deeplink/AnyDeeplink`` ready to be added to the ``DeeplinksCenter``
+    /// - Returns: A ``Deeplink/AnyDeeplink`` ready to be added to the ``Deeplink/DeeplinksCenter``
     func callAsFunction(
         _ completion: @escaping (URL, Value) throws -> Bool
     ) -> AnyDeeplink {
