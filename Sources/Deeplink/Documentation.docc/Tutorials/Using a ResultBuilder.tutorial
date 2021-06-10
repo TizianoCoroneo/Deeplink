@@ -1,0 +1,58 @@
+@Tutorial(time: 10) {
+    @Intro(title: "Registering Deeplinks with a ResultBuilder") {
+        If you need advanced behaviors, you can also register your ``Deeplink/Deeplink`` templates using a `@resultBuilder`.
+        
+        For example, you could enable or disable a specific deeplinking behavior based on a feature flag, or some AB testing parameters.
+    }
+    
+    @Section(title: "Implementation") {
+        Let's go through an example where I want to AB test presenting a specific screen, versus just presenting a webview with the corresponding web content.
+        
+        @Steps {
+            @Step {
+                You can use the ``Deeplink/DeeplinksCenter/init(_:)`` initializer to open a closure where you can register deeplinks in a different way.
+                
+                Registering a literal deeplink template with no arguments only gives you back the URL, in case of a match.
+                
+                @Code(name: "ResultBuilder demo.swift", file: "ResultBuilder 1.swift")
+            }
+            
+            @Step {
+                Registering a deeplink template with arguments is very similar, but you will get a `Value` inside the closure as well.
+                
+                @Code(name: "ResultBuilder demo.swift", file: "ResultBuilder 2.swift")
+            }
+            
+            @Step {
+                Since our old `TestData` type conforms to ``Deeplink/DefaultInitializable``, we don't need to provide an instance to assign values to.
+                
+                In case we cannot conform to this protocol, we can still provide an instance using this other overload.
+                
+                @Code(name: "ResultBuilder demo.swift", file: "ResultBuilder 3.swift")
+            }
+        }
+    }
+    
+    @Section(title: "Conditionally removing templates") {
+        
+        Let's go through an example where I want to AB test presenting a specific screen, versus just presenting a webview with the corresponding web content.
+        
+        @Steps {
+            One way to approach this is to add a check inside the `isMatching` function.
+            
+            @Step {
+                If you have a function `magicABTestIsOn` that gives you a `Bool` to enable/disable a specific behavior, you can call it from inside the `isMatching` function.
+                
+                This function is called every time a new URL is evaluated. 
+                
+                @Code(name: "ResultBuilder demo.swift", file: "ResultBuilder 4.swift")
+            }
+            
+            @Step {
+                If you only want to check once when you first initialize your ``Deeplink/DeeplinksCenter``, you can use the `@resultBuilder` capabilities to potentially remove a template registration from the evaluation list all together.
+                
+                @Code(name: "ResultBuilder demo.swift", file: "ResultBuilder 5.swift")
+            }
+        }
+    }
+}
