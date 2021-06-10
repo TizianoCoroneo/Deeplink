@@ -1,4 +1,4 @@
-@Tutorial(time: 20) {
+@Tutorial(time: 10) {
     @Intro(title: "Advanced Usage") {
         This tutorial is a small collection of advanced tips and tricks.
     }
