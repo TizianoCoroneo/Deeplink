@@ -35,9 +35,9 @@
             }
             
             @Step {
-                Parse a `URL` using the `DeeplinkCenter`.
+                Parse a `URL` using the `DeeplinksCenter`.
                 
-                You can now use the DeeplinkCenter to parse URLs. The center will try all the registered templates in order, running the closure you provide in the registration if the corresponding template matches. Once one closure is run successfully, execution ends.
+                You can now use the DeeplinksCenter to parse URLs. The center will try all the registered templates in order, running the closure you provide in the registration if the corresponding template matches. Once one closure is run successfully, execution ends.
                 
                 @Code(name: "Defining Deeplink Data.swift", file: "AddingADeeplink 4.swift")
             }
@@ -75,7 +75,7 @@
                 @Code(name: "Defining Deeplink Data.swift", file: "AddingMultipleDeeplinks 3.swift")
             }
             
-            Now let's give a look at why the Deeplink's `Value` parameters should be optional.
+            Now let's give a look at why the ``Deeplink/Deeplink``'s `Value` parameters should be optional.
             
             The reason is that it allows you to tell the difference between an empty parameter and an absent parameter:
             - if you have a URL like `/product?query=&price=10`, the `query` parameter is present but empty. A template like `/product?query=\(\.query)` will produce a value of `""` for `query`, since it is present but empty.

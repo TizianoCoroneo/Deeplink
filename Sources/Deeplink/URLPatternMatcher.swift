@@ -32,7 +32,7 @@ struct URLPatternMatcher: Equatable, Hashable {
 
     /// Initialize a `URLPatternMatcher` with a `URL`, stripping away user, scheme and host `URL` components to only get the relative part of it.
     ///
-    /// - Throws: a `DeeplinkError.cannotExtractURLComponents(url: url)` if it cannot extract relative path + query items and fragments from the provided `URL`.
+    /// - Throws: a `DeeplinkError` if it cannot extract relative path + query items and fragments from the provided `URL`.
     init(
         url: URL
     ) throws {

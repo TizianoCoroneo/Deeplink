@@ -610,7 +610,7 @@ class DeeplinksCenterTests: XCTestCase {
             })
 
             // Normally this registration would never be triggered, because the format above matches the same strings.
-            // When the `ifMatching` closure aboves returns `false`, the `DeeplinkCenter` attempts the next formats anyway.
+            // When the `ifMatching` closure aboves returns `false`, the ``Deeplink/DeeplinksCenter`` attempts the next formats anyway.
             .register(
                 deeplink: "/test/me/twice",
                 assigningTo: (),
@@ -650,7 +650,7 @@ class DeeplinksCenterTests: XCTestCase {
             })
 
             // Normally this registration would never be triggered, because the format above matches the same strings.
-            // When the `ifMatching` closure aboves returns `false`, the `DeeplinkCenter` attempts the next formats anyway.
+            // When the `ifMatching` closure aboves returns `false`, the ``Deeplink/DeeplinksCenter`` attempts the next formats anyway.
             .register(
                 deeplink: "/test/me/twice",
                 assigningTo: (),

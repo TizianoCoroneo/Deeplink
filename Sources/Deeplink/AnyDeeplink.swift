@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Type-erased version of `Deeplink`. Used to keep a list of `Deeplink`s in the `DeeplinkCenter` where every element of the list might have different type parameters.
+/// Type-erased version of ``Deeplink/Deeplink``. Used to keep a list of Deeplinks in the ``Deeplink/DeeplinksCenter`` where every element of the list might have different type parameters.
 public struct AnyDeeplink: CustomStringConvertible {
     private let parseURLIntoInstance: (URL) throws -> Bool
     public let description: String
@@ -15,7 +15,7 @@ public struct AnyDeeplink: CustomStringConvertible {
     /// Designated initializer.
     ///
     /// - Parameters:
-    ///   - deeplink: The `Deeplink` template to type-erase.
+    ///   - deeplink: The ``Deeplink/Deeplink`` template to type-erase.
     ///   - assigningTo: The value to which the content of the `URL` arguments will be assigned to.
     ///   - completion: The completion handler to invoke if the `URL` passed to the `parse(_ url:)` function matches the deeplink template.
     init<Value>(
@@ -35,7 +35,7 @@ public struct AnyDeeplink: CustomStringConvertible {
     /// Initializer that assigns the deeplink values to a fresh new instance of `Value`.
     ///
     /// - Parameters:
-    ///   - deeplink: The `Deeplink` template to type-erase.
+    ///   - deeplink: The ``Deeplink/Deeplink`` template to type-erase.
     ///   - completion: The completion handler to invoke if the `URL` passed to the `parse(_ url:)` function matches the deeplink template.
     init<Value>(
         deeplink: Deeplink<Value>,

@@ -17,7 +17,7 @@ public enum Deeplink<Value>: Equatable, Hashable {
 
     /// An "interpolated" deeplink is a string that also contains string interpolation arguments.
     ///
-    /// In our case, the arguments are `WritableKeyPath<T, String>` that will be used to assign their corresponding string argument to that property on the `T` `assigningTo` instance (see `DeeplinkCenter`).
+    /// In our case, the arguments are `WritableKeyPath<T, String>` that will be used to assign their corresponding string argument to that property on the `T` `assigningTo` instance (see ``DeeplinksCenter``).
     case interpolated(DeeplinkInterpolation<Value>)
 
     // MARK: - Utilities
@@ -117,7 +117,7 @@ public extension Deeplink {
     /// - Parameters:
     ///   - value: Value to assign the content of the deeplink to.
     ///   - completion: Closure to run when the deeplink is matched.
-    /// - Returns: A `AnyDeeplink` ready to be added to the `DeeplinkCenter`
+    /// - Returns: A ``Deeplink/AnyDeeplink`` ready to be added to the ``DeeplinksCenter``
     func callAsFunction(
         assigningTo value: Value,
         _ completion: @escaping (URL, Value) throws -> Bool
@@ -133,7 +133,7 @@ public extension Deeplink where Value: DefaultInitializable {
     /// Embeds the action to take when matching this deeplink into the deeplink itself, producing a AnyDeeplink instance.
     /// - Parameters:
     ///   - completion: Closure to run when the deeplink is matched.
-    /// - Returns: A `AnyDeeplink` ready to be added to the `DeeplinkCenter`
+    /// - Returns: A ``Deeplink/AnyDeeplink`` ready to be added to the ``DeeplinksCenter``
     func callAsFunction(
         _ completion: @escaping (URL, Value) throws -> Bool
     ) -> AnyDeeplink {
@@ -147,7 +147,7 @@ public extension Deeplink where Value == Void {
     /// Embeds the action to take when matching this deeplink into the deeplink itself, producing a AnyDeeplink instance.
     /// - Parameters:
     ///   - completion: Closure to run when the deeplink is matched.
-    /// - Returns: A `AnyDeeplink` ready to be added to the `DeeplinkCenter`
+    /// - Returns: A ``Deeplink/AnyDeeplink`` ready to be added to the ``Deeplink/DeeplinksCenter``
     func callAsFunction(
         _ completion: @escaping (URL) throws -> Bool
     ) -> AnyDeeplink {

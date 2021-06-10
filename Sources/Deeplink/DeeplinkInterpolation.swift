@@ -11,7 +11,7 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
 
     // MARK: - Deeplink Component
 
-    /// A `DeeplinkInterpolation` is made out of a list of components.
+    /// A ``Deeplink/DeeplinkInterpolation`` is made out of a list of components.
     /// A `Component` can be or a literal string or an argument (keypath).
     ///
     /// For example, the deeplink `/sell/ticket/\(\.id)` has two components:
@@ -53,14 +53,14 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
 
     // MARK: - Initializers
 
-    /// Initialize with a list of components. Used only in unit tests, and to initialize a `DeeplinkInterpolation` from a literal string (see `Deeplink<Value>`).
+    /// Initialize with a list of components. Used only in unit tests, and to initialize a ``Deeplink/DeeplinkInterpolation`` from a literal string (see ``Deeplink/Deeplink``).
     init(
         components: [Component]
     ) {
         self.components = components
     }
 
-    /// Initializer used by Swift when creating a `DeeplinkInterpolation` from a string interpolation.
+    /// Initializer used by Swift when creating a ``Deeplink/DeeplinkInterpolation`` from a string interpolation.
     /// The arguments should be used for performance tuning, but we cannot use them because of how the components are stored in a list.
     public init(
         literalCapacity: Int,

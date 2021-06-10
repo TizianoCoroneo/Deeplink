@@ -31,6 +31,7 @@ When parsing a URL, the parameter is associated with the KeyPath that occupies t
 
 - ``Deeplink/AnyDeeplink``
 - ``Deeplink/DeeplinkInterpolation``
+- ``Deeplink/DeeplinkBuilder``
 
 ### Tutorial
 

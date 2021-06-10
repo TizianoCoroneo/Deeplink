@@ -51,7 +51,7 @@ public class DeeplinksCenter {
      }
      }
      ```
-     - Parameter builder: Closure that builds a list of deeplinks using `DeeplinkBuilder`.
+     - Parameter builder: Closure that builds a list of deeplinks using ``Deeplink/DeeplinkBuilder``.
      **/
     public convenience init(
         @DeeplinkBuilder _ builder: () -> [AnyDeeplink]
@@ -84,7 +84,7 @@ public class DeeplinksCenter {
     /// })
     ///
     /// // This format will not match any URL, as the previous one overlaps its format and matches first. If you swap them, and register this pattern first, it will work just fine.
-    /// // Another possibility is to return `false` in the `ifMatching` closure above: this will tell the `DeeplinkCenter` that the matching closure failed, and it will continue to try to parse the remaining registered deeplink templates where it left off.
+    /// // Another possibility is to return `false` in the `ifMatching` closure above: this will tell the `DeeplinksCenter` that the matching closure failed, and it will continue to try to parse the remaining registered deeplink templates where it left off.
     /// .register(
     ///     deeplink: try! "/sell/ticket/\(\.id)",
     ///     assigningTo: ticket,
@@ -95,9 +95,9 @@ public class DeeplinksCenter {
     /// ```
     ///
     /// - Parameters:
-    ///   - deeplink: The `Deeplink<Value>` that defines the format to match.
+    ///   - deeplink: The ``Deeplink/Deeplink`` that defines the format to match.
     ///   - assigningTo: An object that will receive the values extracted from the deeplink.
-    ///   - ifMatching: A closure that will be executed when a `URL` matches the format defined by the `deeplink` argument. Return `true` to stop the URL matching and consider the `URL` successfully parsed. Return `false` to "fail" the match, and let the `DeeplinkCenter` try out the next registered `Deeplink` templates.
+    ///   - ifMatching: A closure that will be executed when a `URL` matches the format defined by the `deeplink` argument. Return `true` to stop the URL matching and consider the `URL` successfully parsed. Return `false` to "fail" the match, and let the `DeeplinksCenter` try out the next registered ``Deeplink/Deeplink`` templates.
     @discardableResult
     public func register<Value>(
         deeplink: Deeplink<Value>,
@@ -134,7 +134,7 @@ public class DeeplinksCenter {
     /// })
     ///
     /// // This format will not match any URL, as the previous one overlaps its format and matches first. If you swap them, and register this pattern first, it will work just fine.
-    /// // Another possibility is to return `false` in the `ifMatching` closure above: this will tell the `DeeplinkCenter` that the matching closure failed, and it will continue to try to parse the remaining registered deeplink templates where it left off.
+    /// // Another possibility is to return `false` in the `ifMatching` closure above: this will tell the `DeeplinksCenter` that the matching closure failed, and it will continue to try to parse the remaining registered deeplink templates where it left off.
     /// .register(
     ///     deeplink: [try! "/sell/ticket/test/\(\.id)", try! "/selling/ticket/test/\(\.id)"],
     ///     ifMatching: { url in
@@ -144,8 +144,8 @@ public class DeeplinksCenter {
     /// ```
     ///
     /// - Parameters:
-    ///   - deeplinks: A list of `Deeplink<Void>`. The `DeeplinkCenter` will attempt to match a `URL` against each of this list's elements, in order. The same `ifMatching` closure will be called, if any of the templates successfully match the `URL`.
-    ///   - ifMatching: A closure that will be executed when a `URL` matches one of the formats defined by the `deeplinks` argument. Return `true` to stop the URL matching and consider the `URL` successfully parsed. Return `false` to "fail" the match, and let the `DeeplinkCenter` try out the next template in the `deeplinks` array, or the next registered `Deeplink` templates on the center itself.
+    ///   - deeplinks: A list of ``Deeplink/Deeplink``. The `DeeplinksCenter` will attempt to match a `URL` against each of this list's elements, in order. The same `ifMatching` closure will be called, if any of the templates successfully match the `URL`.
+    ///   - ifMatching: A closure that will be executed when a `URL` matches one of the formats defined by the `deeplinks` argument. Return `true` to stop the URL matching and consider the `URL` successfully parsed. Return `false` to "fail" the match, and let the `DeeplinksCenter` try out the next template in the `deeplinks` array, or the next registered ``Deeplink/Deeplink`` templates on the center itself.
     @discardableResult
     public func register<Value>(
         deeplinks: [Deeplink<Value>],
@@ -183,7 +183,7 @@ public class DeeplinksCenter {
     /// })
     ///
     /// // This format will not match any URL, as the previous one overlaps its format and matches first. If you swap them, and register this pattern first, it will work just fine.
-    /// // Another possibility is to return `false` in the `ifMatching` closure above: this will tell the `DeeplinkCenter` that the matching closure failed, and it will continue to try to parse the remaining registered deeplink templates where it left off.
+    /// // Another possibility is to return `false` in the `ifMatching` closure above: this will tell the `DeeplinksCenter` that the matching closure failed, and it will continue to try to parse the remaining registered deeplink templates where it left off.
     /// .register(
     ///     deeplink: "/sell/ticket/test",
     ///     ifMatching: { url in
@@ -194,7 +194,7 @@ public class DeeplinksCenter {
     ///
     /// - Parameters:
     ///   - deeplink: The `Deeplink<Void>` that defines the literal URL's relative path to match..
-    ///   - ifMatching: A closure that will be executed when a `URL` matches the format defined by the `deeplink` argument. Return `true` to stop the URL matching and consider the `URL` successfully parsed. Return `false` to "fail" the match, and let the `DeeplinkCenter` try out the next registered `Deeplink` templates.
+    ///   - ifMatching: A closure that will be executed when a `URL` matches the format defined by the `deeplink` argument. Return `true` to stop the URL matching and consider the `URL` successfully parsed. Return `false` to "fail" the match, and let the `DeeplinksCenter` try out the next registered ``Deeplink/Deeplink`` templates.
     @discardableResult
     public func register(
         deeplink: Deeplink<Void>,
@@ -226,7 +226,7 @@ public class DeeplinksCenter {
     /// })
     ///
     /// // This format will not match any URL, as the previous one overlaps its format and matches first. If you swap them, and register this pattern first, it will work just fine.
-    /// // Another possibility is to return `false` in the `ifMatching` closure above: this will tell the `DeeplinkCenter` that the matching closure failed, and it will continue to try to parse the remaining registered deeplink templates where it left off.
+    /// // Another possibility is to return `false` in the `ifMatching` closure above: this will tell the `DeeplinksCenter` that the matching closure failed, and it will continue to try to parse the remaining registered deeplink templates where it left off.
     /// .register(
     ///     deeplink: ["/sell/ticket/test", "/selling/ticket/test"],
     ///     ifMatching: { url in
@@ -236,8 +236,8 @@ public class DeeplinksCenter {
     /// ```
     ///
     /// - Parameters:
-    ///   - deeplinks: A list of `Deeplink<Void>`. The `DeeplinkCenter` will attempt to match a `URL` against each of this list's elements, in order. The same `ifMatching` closure will be called, if any of the templates successfully match the `URL`.
-    ///   - ifMatching: A closure that will be executed when a `URL` matches one of the formats defined by the `deeplinks` argument. Return `true` to stop the URL matching and consider the `URL` successfully parsed. Return `false` to "fail" the match, and let the `DeeplinkCenter` try out the next template in the `deeplinks` array, or the next registered `Deeplink` templates on the center itself.
+    ///   - deeplinks: A list of `Deeplink<Void>`. The `DeeplinksCenter` will attempt to match a `URL` against each of this list's elements, in order. The same `ifMatching` closure will be called, if any of the templates successfully match the `URL`.
+    ///   - ifMatching: A closure that will be executed when a `URL` matches one of the formats defined by the `deeplinks` argument. Return `true` to stop the URL matching and consider the `URL` successfully parsed. Return `false` to "fail" the match, and let the `DeeplinksCenter` try out the next template in the `deeplinks` array, or the next registered ``Deeplink/Deeplink`` templates on the center itself.
     @discardableResult
     public func register(
         deeplinks: [Deeplink<Void>],
