@@ -21,6 +21,21 @@ class LiteralDeeplinkTests: XCTestCase {
         XCTAssertNoThrow(try deeplink.parse("apple:///test"))
     }
 
+    func testMatchesEmptyPath() {
+        let deeplink = "" as Deeplink<Void>
+        XCTAssertNoThrow(try deeplink.parse("apple://"))
+    }
+
+    func testEverythingMatchesEmptyPath() {
+        let deeplink = "" as Deeplink<Void>
+        XCTAssertNoThrow(try deeplink.parse("apple://"))
+    }
+
+    func testMatchesSlashPath() {
+        let deeplink = "/" as Deeplink<Void>
+        XCTAssertNoThrow(try deeplink.parse("apple:///"))
+    }
+
     func testMatchesPathIgnoringNextPath() {
         let deeplink = "/test" as Deeplink<Void>
         XCTAssertNoThrow(try deeplink.parse("apple:///test/again"))
