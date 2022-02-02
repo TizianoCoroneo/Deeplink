@@ -20,6 +20,9 @@ public enum Deeplink<Value>: Equatable, Hashable {
     /// In our case, the arguments are `WritableKeyPath<T, String>` that will be used to assign their corresponding string argument to that property on the `T` `assigningTo` instance (see ``DeeplinksCenter``).
     case interpolated(DeeplinkInterpolation<Value>)
 
+    /// A placeholder deeplink to capture any string with no arguments.
+    case catchAll
+
     // MARK: - Utilities
 
     /// Returns all the components that makes up this deeplink: in case of a literal deeplink, there will be only one `literal` component corresponding to the whole string; in case of an interpolated deeplink, it will be a list of all the interpolation components (see `DeeplinkInterpolation<Value>` and `DeeplinkInterpolation<Value>.Component`).
@@ -31,6 +34,8 @@ public enum Deeplink<Value>: Equatable, Hashable {
             return [ .literal(value) ]
         case let .interpolated(interpolation):
             return interpolation.components
+        case .catchAll:
+            return []
         }
     }
 
@@ -39,7 +44,7 @@ public enum Deeplink<Value>: Equatable, Hashable {
     /// This is mainly used to unify the logic for handling a literal deeplink (matching the string) and the logic for handling an interpolated deeplink (matching string components, and assigning argument components).
     var interpolation: DeeplinkInterpolation<Value> {
         switch self {
-        case .literal: return .init(components: self.components)
+        case .literal, .catchAll: return .init(components: self.components)
         case .interpolated(let interpolation): return interpolation
         }
     }
@@ -169,6 +174,8 @@ extension Deeplink: CustomStringConvertible {
             return "Literal deeplink: \"\(value)\""
         case .interpolated(let interpolation):
             return "Interpolated deeplink: \"\(interpolation)\""
+        case .catchAll:
+            return "Catch all deeplink"
         }
     }
 }
