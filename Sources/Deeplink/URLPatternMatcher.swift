@@ -94,15 +94,6 @@ struct URLPatternMatcher: Equatable, Hashable {
         let literals = components
             .compactMap { $0.literalPath }
 
-        // If there is only one empty literal, we're trying to parse the empty deeplink "".
-        // Check if the relative path is also empty, if so return no component.
-        if literals.count == 1,
-            let literalPath = literals.first,
-            literalPath.isEmpty,
-           relativeString.isEmpty {
-            return []
-        }
-
         // Split the relative part of the URL to parse using the list of literals, one at the time:
         // The string `1234567890` split with the literals `["2", "6"]` would return `["1", "345", "7890"]`.
         var segments: [String] = try splitRelativeStringWith(
