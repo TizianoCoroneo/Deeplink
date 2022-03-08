@@ -13,7 +13,7 @@ public class DeeplinksCenter {
     // MARK: - Properties
 
     /// List of deeplinks to try when parsing a `URL`. Order matters!
-    private var deeplinks: [AnyDeeplink]
+    var deeplinks: [AnyDeeplink]
 
     // MARK: - Initializer
 

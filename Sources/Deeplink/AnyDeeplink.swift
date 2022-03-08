@@ -9,7 +9,7 @@ import Foundation
 
 /// Type-erased version of ``Deeplink/Deeplink``. Used to keep a list of Deeplinks in the ``Deeplink/DeeplinksCenter`` where every element of the list might have different type parameters.
 public struct AnyDeeplink: CustomStringConvertible {
-    private let parseURLIntoInstance: (URL) throws -> Bool
+    var parseURLIntoInstance: (URL) throws -> Bool
     public let description: String
 
     /// Designated initializer.
