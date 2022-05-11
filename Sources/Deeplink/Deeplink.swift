@@ -27,6 +27,8 @@ public enum Deeplink<Value>: Equatable, Hashable {
     /// This is mainly used to unify the logic for handling a literal deeplink (matching the string) and the logic for handling an interpolated deeplink (matching string components, and assigning argument components).
     var components: [DeeplinkInterpolation<Value>.Component] {
         switch self {
+        case let .literal(value) where value == "":
+            return []
         case let .literal(value):
             return [ .literal(value) ]
         case let .interpolated(interpolation):
@@ -107,6 +109,9 @@ public extension Deeplink where Value == Void {
         var void: Void = ()
         try interpolation.parse(url, into: &void)
     }
+
+    /// A placeholder deeplink to match any URL.
+    static var catchAll: Deeplink<Void> { .literal("") }
 }
 
 // MARK: - Converting to AnyDeeplink
@@ -165,6 +170,8 @@ public extension Deeplink where Value == Void {
 extension Deeplink: CustomStringConvertible {
     public var description: String {
         switch self {
+        case .literal(let value) where value == "":
+            return "Catch all deeplink"
         case .literal(let value):
             return "Literal deeplink: \"\(value)\""
         case .interpolated(let interpolation):

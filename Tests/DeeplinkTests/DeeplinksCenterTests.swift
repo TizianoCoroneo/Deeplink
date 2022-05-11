@@ -110,11 +110,13 @@ class DeeplinksCenterTests: XCTestCase {
         let locationURL: URL = "https://ticketswap.com/location/amsterdam/1234567/24-06-2019"
         let eventTypeURL: URL = "https://ticketswap.com/event/awakenings/regular/123/456"
         let eventURL: URL = "https://ticketswap.com/event/awakenings/123"
+        let unknownURL: URL = "https://ticketswap.com/lorem-ipsum-dolor-sit-amet"
 
         let artistExpectation = expectation(description: "Decode artist")
         let locationExpectation = expectation(description: "Decode location")
         let eventExpectation = expectation(description: "Decode event")
         let eventTypeExpectation = expectation(description: "Decode eventType")
+        let catchAllExpectation = expectation(description: "Match catchAll deeplink")
 
         repo
             .register(
@@ -193,6 +195,16 @@ class DeeplinksCenterTests: XCTestCase {
 
                     return true
             })
+            .register(
+                deeplink: .catchAll,
+                ifMatching: { url in
+
+                    XCTAssertEqual(unknownURL, url)
+
+                    catchAllExpectation.fulfill()
+
+                    return true
+                })
 
         XCTAssertNoThrow(try repo
             .parse(url: "https://ticketswap.com/artist/metallica/123456"))
@@ -205,6 +217,8 @@ class DeeplinksCenterTests: XCTestCase {
 
         XCTAssertNoThrow(try repo
             .parse(url: "https://ticketswap.com/event/awakenings/123"))
+
+        XCTAssertNoThrow(try repo.parse(url: unknownURL))
 
         waitForExpectations(timeout: 0.1, handler: nil)
     }
