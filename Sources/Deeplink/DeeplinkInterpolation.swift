@@ -21,6 +21,7 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
     enum Component: Equatable, Hashable, CustomStringConvertible {
         case literal(String)
         case argument(WritableKeyPath<Value, String?>)
+        case argumentList(WritableKeyPath<Value, [String]?>, separator: Character)
 
         // MARK: - Methods
 
@@ -38,10 +39,26 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
             return path
         }
 
+        /// The keypath contained in this component, in case it is an `argumentList` component. `nil` otherwise.
+        var argumentListPath: WritableKeyPath<Value, [String]?>? {
+            guard case .argumentList(let path, _) = self
+            else { return nil }
+            return path
+        }
+
+        /// The separator character contained in this component, in case it is an `argumentList` component. `nil` otherwise.
+        /// The separator is used to tell apart each item in the argument list.
+        var argumentListSeparator: Character? {
+            guard case .argumentList(_, let separator) = self
+            else { return nil }
+            return separator
+        }
+
         var description: String {
             switch self {
             case .literal(let value): return value
             case .argument: return "{{ argument }}"
+            case .argumentList: return "{{ argument list }}"
             }
         }
     }
@@ -108,6 +125,13 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
                 argument2: path)
         }
 
+        if let last = self.components.last,
+           case .argumentList(let lastPath, _) = last {
+            throw DeeplinkError.cannotSetTwoArgumentsConsecutively(
+                argument1: lastPath,
+                argument2: path)
+        }
+
         // Check if we already have a component with the specified keypath, if so throw
         if self.components.contains(newComponent) {
             throw DeeplinkError.argumentRepeated(argument: path)
@@ -115,6 +139,38 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
 
         self.components.append(newComponent)
     }
+
+    public mutating func appendInterpolation(
+        _ path: WritableKeyPath<Value, [String]?>,
+        separator: Character
+    ) throws {
+        let newComponent: Component = .argumentList(path, separator: separator)
+
+        // Check if we have two consecutive argument components, if so throw
+        if let last = self.components.last,
+           case .argument(let lastPath) = last {
+            throw DeeplinkError.cannotSetTwoArgumentsConsecutively(
+                argument1: lastPath,
+                argument2: path)
+        }
+
+        if let last = self.components.last,
+           case .argumentList(let lastPath, _) = last {
+            throw DeeplinkError.cannotSetTwoArgumentsConsecutively(
+                argument1: lastPath,
+                argument2: path)
+        }
+
+        // Check if we already have a component with the specified keypath, if so throw
+        if self.components.contains(where: {
+            $0.argumentListPath == newComponent.argumentListPath
+        }) {
+            throw DeeplinkError.argumentRepeated(argument: path)
+        }
+
+        self.components.append(newComponent)
+    }
+
 
     // MARK: - Methods
 
