@@ -54,6 +54,14 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
             return separator
         }
 
+        /// `true` if this component contains an argument keypath.
+        var isArgument: Bool {
+            switch self {
+            case .literal: return false
+            case .argument, .argumentList: return true
+            }
+        }
+
         var description: String {
             switch self {
             case .literal(let value): return value
@@ -140,6 +148,14 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
         self.components.append(newComponent)
     }
 
+    /// Method called by Swift when the string interpolation contains an interpolation argument list.
+    ///
+    /// Example: the deeplink `"/sell/ticket/ids=\(\.idList, separator: ",")"` will trigger the following calls in order:
+    /// ```swift
+    /// var interpolation = DeeplinkInterpolation(literalCapacity: 17, interpolationCount: 1)
+    /// interpolation.appendLiteral("/sell/ticket/ids=")
+    /// interpolation.appendInterpolation(\.idList, separator: ",")
+    /// ```
     public mutating func appendInterpolation(
         _ path: WritableKeyPath<Value, [String]?>,
         separator: Character

@@ -16,6 +16,12 @@ class URLPathDataTests: XCTestCase {
         var test3: String?
         var test4: String?
         var test5: String?
+
+        var testList1: [String]?
+        var testList2: [String]?
+        var testList3: [String]?
+        var testList4: [String]?
+        var testList5: [String]?
     }
 
     // MARK: - URLPathData Initializer Tests
@@ -181,6 +187,22 @@ class URLPathDataTests: XCTestCase {
             }())
     }
 
+    func testComputeSegmentsAlwaysSplitsUpQueryItems_argumentList() {
+
+        let deeplink: Deeplink<TestData> = try! "/sell/complex/\(\.testList1, separator: ",")"
+
+        let data = try! URLPatternMatcher(url: "https://apple.com/sell/complex/tickets1,tickets2?name=john")
+
+        XCTAssertNoThrow(try {
+            let segments = try data
+                .findArgumentsSegments(forComponents: deeplink.components)
+
+            XCTAssertEqual([
+                "tickets1,tickets2",
+            ], segments)
+        }())
+    }
+
     func testComputeSegmentsSupportsEmptyQueryItemNames() {
 
         let deeplink: Deeplink<TestData> = try! "/test?a=1&\(\.test1)="
@@ -230,6 +252,22 @@ class URLPathDataTests: XCTestCase {
             }())
     }
 
+    func testComputeSegmentsAlwaysSplitsUpFragments_argumentList() {
+
+        let deeplink: Deeplink<TestData> = try! "/sell/complex/\(\.testList1, separator: ",")"
+
+        let data = try! URLPatternMatcher(url: "https://apple.com/sell/complex/ticket1,ticket2#help")
+
+        XCTAssertNoThrow(try {
+            let segments = try data
+                .findArgumentsSegments(forComponents: deeplink.components)
+
+            XCTAssertEqual([
+                "ticket1,ticket2"
+            ], segments)
+        }())
+    }
+
     func testComputeSegmentsAlwaysSplitsUpQueryItemsAndFragments() {
 
         let deeplink: Deeplink<TestData> = try! "/sell/complex/\(\.test1)"
@@ -244,6 +282,22 @@ class URLPathDataTests: XCTestCase {
                 "tickets",
             ], segments)
             }())
+    }
+
+    func testComputeSegmentsAlwaysSplitsUpQueryItemsAndFragments_argumentList() {
+
+        let deeplink: Deeplink<TestData> = try! "/sell/complex/\(\.testList1, separator: ",")"
+
+        let data = try! URLPatternMatcher(url:  "https://apple.com/sell/complex/ticket1,ticket2?name=john#help")
+
+        XCTAssertNoThrow(try {
+            let segments = try data
+                .findArgumentsSegments(forComponents: deeplink.components)
+
+            XCTAssertEqual([
+                "ticket1,ticket2",
+            ], segments)
+        }())
     }
 
     func testComputeSegmentsAlwaysSplitsPathComponents() {
@@ -281,6 +335,25 @@ class URLPathDataTests: XCTestCase {
             }())
     }
 
+    func testComputeSegmentsWorksWithMixedDuplicates_argumentList() {
+
+        let deeplink: Deeplink<TestData> = try! "/sell/\(\.testList1, separator: ",")/?\(\.testList2, separator: "&")=sell&sell=\(\.testList3, separator: "&")#\(\.testList4, separator: ";")"
+
+        let data = try! URLPatternMatcher(url: "https://apple.com/sell/sell,sell/?sell&sell=sell&sell=sell&sell#sell;sell")
+
+        XCTAssertNoThrow(try {
+            let segments = try data
+                .findArgumentsSegments(forComponents: deeplink.components)
+
+            XCTAssertEqual([
+                "sell,sell",
+                "sell&sell",
+                "sell&sell",
+                "sell;sell"
+            ], segments)
+        }())
+    }
+
     // MARK: - Matches components tests
 
     func testMatchesComponents() {
@@ -299,6 +372,11 @@ class URLPathDataTests: XCTestCase {
             XCTAssertEqual("john", test.test3)
             XCTAssertEqual("jack", test.test4)
             XCTAssertEqual("help", test.test5)
+            XCTAssertNil(test.testList1)
+            XCTAssertNil(test.testList2)
+            XCTAssertNil(test.testList3)
+            XCTAssertNil(test.testList4)
+            XCTAssertNil(test.testList5)
         } catch {
             XCTFail(error.localizedDescription)
         }
@@ -320,6 +398,11 @@ class URLPathDataTests: XCTestCase {
             XCTAssertNil(test.test3)
             XCTAssertNil(test.test4)
             XCTAssertNil(test.test5)
+            XCTAssertNil(test.testList1)
+            XCTAssertNil(test.testList2)
+            XCTAssertNil(test.testList3)
+            XCTAssertNil(test.testList4)
+            XCTAssertNil(test.testList5)
         } catch {
             XCTFail(error.localizedDescription)
         }
@@ -341,6 +424,11 @@ class URLPathDataTests: XCTestCase {
             XCTAssertNil(test.test3)
             XCTAssertNil(test.test4)
             XCTAssertNil(test.test5)
+            XCTAssertNil(test.testList1)
+            XCTAssertNil(test.testList2)
+            XCTAssertNil(test.testList3)
+            XCTAssertNil(test.testList4)
+            XCTAssertNil(test.testList5)
         } catch {
             XCTFail(error.localizedDescription)
         }
@@ -362,6 +450,11 @@ class URLPathDataTests: XCTestCase {
             XCTAssertNil(test.test3)
             XCTAssertNil(test.test4)
             XCTAssertNil(test.test5)
+            XCTAssertNil(test.testList1)
+            XCTAssertNil(test.testList2)
+            XCTAssertNil(test.testList3)
+            XCTAssertNil(test.testList4)
+            XCTAssertNil(test.testList5)
         } catch {
             XCTFail(error.localizedDescription)
         }
@@ -383,11 +476,40 @@ class URLPathDataTests: XCTestCase {
             XCTAssertNil(test.test3)
             XCTAssertNil(test.test4)
             XCTAssertNil(test.test5)
+            XCTAssertNil(test.testList1)
+            XCTAssertNil(test.testList2)
+            XCTAssertNil(test.testList3)
+            XCTAssertNil(test.testList4)
+            XCTAssertNil(test.testList5)
         } catch {
             XCTFail(error.localizedDescription)
         }
     }
 
+    func testOneQueryItemDeeplinkIgnoresOtherQueryItems_argumentList() {
+
+        let deeplink: Deeplink<TestData> = try! "/sell/complex/tickets?test1=\(\.testList1, separator: ",")"
+
+        let data = try! URLPatternMatcher(url: "https://apple.com/sell/complex/tickets?test1=a,b,c&test2=b")
+
+        do {
+            var test = TestData()
+
+            try data.match(components: deeplink.components, into: &test)
+
+            XCTAssertEqual(["a", "b", "c"], test.testList1)
+            XCTAssertNil(test.test2)
+            XCTAssertNil(test.test3)
+            XCTAssertNil(test.test4)
+            XCTAssertNil(test.test5)
+            XCTAssertNil(test.testList2)
+            XCTAssertNil(test.testList3)
+            XCTAssertNil(test.testList4)
+            XCTAssertNil(test.testList5)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
 
     func testComplexMatchWithPartialFragmentMatchAndOutOfOrderKeys() {
 

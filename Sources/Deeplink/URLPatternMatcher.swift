@@ -112,9 +112,19 @@ struct URLPatternMatcher: Equatable, Hashable {
         // If argument segments are found, perform extra checks.
         if !segments.isEmpty {
 
+            // Make a list of the characters that we should look for to terminate the content of each argument segment.
+            // This list should be made of all the reserved characters, except the one that's used to separate an argument list in case we have an argument list component.
+            var terminatingCharacters = self.reservedURLCharacters
+
+            if let separatorCharacter = components.last?.argumentListSeparator,
+               let index = terminatingCharacters.firstIndex(of: separatorCharacter) {
+                terminatingCharacters.remove(at: index)
+            }
+
             // Remove from the last one all characters found after the first occurrence of one of the "reserved" characters.
+            // This stops the argument from extending all the way to the end of the URL.
             segments[segments.count - 1] = segments[segments.count - 1]
-                .removeAfterAnyCharacterIn(string: reservedURLCharacters)
+                .removeAfterAnyCharacterIn(string: terminatingCharacters)
 
             // If the first segment is empty, it means that the first literal component was at the beginning of the URL to parse. Remove it.
             if segments[0].isEmpty {
@@ -132,7 +142,7 @@ struct URLPatternMatcher: Equatable, Hashable {
         // If we found more segments than arguments, remove the extra segments.
         // This is needed in case we have an argument component that evaluates to an empty string, to avoid assigning an "out of bounds" value to it.
         // Just comment the next three lines and run the tests to see what I mean.
-        let arguments = components.compactMap { $0.argumentPath }
+        let arguments = components.filter(\.isArgument)
         if segments.count > arguments.count {
             segments.removeLast(segments.count - arguments.count)
         }
@@ -151,17 +161,29 @@ struct URLPatternMatcher: Equatable, Hashable {
         into instance: inout Value
     ) throws {
 
-        // Grab all the keypaths in the interpolation pattern
-        let keypaths = components
-            .compactMap { $0.argumentPath }
+        // Grab all the argument components in the interpolation pattern
+        let argumentComponents = components.filter { $0.isArgument }
 
         // Grab all the argument segments from the `relativeString`.
         let segments = try findArgumentsSegments(forComponents: components)
 
-        // For each keypath, assign its corresponding value to the `instance` object.
-        zip(keypaths, segments).forEach {
-            let (keyPath, segment) = $0
-            instance[keyPath: keyPath] = segment
+        // For each argument component, assign its corresponding value to the `instance` object.
+        zip(argumentComponents, segments).forEach {
+            let (component, segment) = $0
+
+            switch component {
+            case .literal(let path):
+                assertionFailure("""
+Should never receive a literal component at this stage.
+Literal component: \(path)
+""")
+
+            case .argument(let keyPath):
+                instance[keyPath: keyPath] = segment
+
+            case .argumentList(let keyPath, separator: let separator):
+                instance[keyPath: keyPath] = segment.split(separator: separator).map { String($0) }
+            }
         }
     }
 
