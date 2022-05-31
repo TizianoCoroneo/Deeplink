@@ -354,6 +354,38 @@ class URLPathDataTests: XCTestCase {
         }())
     }
 
+    func testComputeSegmentsWorksWithFinalEmptyArgumentList() {
+
+        let deeplink: Deeplink<TestData> = try! "/sell/\(\.testList1, separator: ",")"
+
+        let data = try! URLPatternMatcher(url: "https://apple.com/sell/")
+
+        XCTAssertNoThrow(try {
+            let segments = try data
+                .findArgumentsSegments(forComponents: deeplink.components)
+
+            XCTAssertEqual([
+                "",
+            ], segments)
+        }())
+    }
+
+    func testComputeSegmentsWorksWithIntermediateEmptyArgumentList() {
+
+        let deeplink: Deeplink<TestData> = try! "/sell/ids=\(\.testList1, separator: ",")/test"
+
+        let data = try! URLPatternMatcher(url: "https://apple.com/sell/ids=/test")
+
+        XCTAssertNoThrow(try {
+            let segments = try data
+                .findArgumentsSegments(forComponents: deeplink.components)
+
+            XCTAssertEqual([
+                "",
+            ], segments)
+        }())
+    }
+
     // MARK: - Matches components tests
 
     func testMatchesComponents() {
@@ -502,6 +534,84 @@ class URLPathDataTests: XCTestCase {
             XCTAssertNil(test.test3)
             XCTAssertNil(test.test4)
             XCTAssertNil(test.test5)
+            XCTAssertNil(test.testList2)
+            XCTAssertNil(test.testList3)
+            XCTAssertNil(test.testList4)
+            XCTAssertNil(test.testList5)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+
+    func testMatchWithSingleElementArgumentList() {
+
+        let deeplink: Deeplink<TestData> = try! "/sell/ids=\(\.testList1, separator: ",")/test"
+
+        let data = try! URLPatternMatcher(url: "https://apple.com/sell/ids=1/test")
+
+        do {
+            var test = TestData()
+
+            try data.match(components: deeplink.components, into: &test)
+
+            XCTAssertNil(test.test1)
+            XCTAssertNil(test.test2)
+            XCTAssertNil(test.test3)
+            XCTAssertNil(test.test4)
+            XCTAssertNil(test.test5)
+            XCTAssertEqual(["1"], test.testList1)
+            XCTAssertNil(test.testList2)
+            XCTAssertNil(test.testList3)
+            XCTAssertNil(test.testList4)
+            XCTAssertNil(test.testList5)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+
+    func testMatchWithIntermediateEmptyArgumentList() {
+
+        let deeplink: Deeplink<TestData> = try! "/sell/ids=\(\.testList1, separator: ",")/test"
+
+        let data = try! URLPatternMatcher(url: "https://apple.com/sell/ids=/test")
+
+        do {
+            var test = TestData()
+
+            try data.match(components: deeplink.components, into: &test)
+
+            XCTAssertNil(test.test1)
+            XCTAssertNil(test.test2)
+            XCTAssertNil(test.test3)
+            XCTAssertNil(test.test4)
+            XCTAssertNil(test.test5)
+            XCTAssertEqual([], test.testList1)
+            XCTAssertNil(test.testList2)
+            XCTAssertNil(test.testList3)
+            XCTAssertNil(test.testList4)
+            XCTAssertNil(test.testList5)
+        } catch {
+            XCTFail(error.localizedDescription)
+        }
+    }
+
+    func testMatchWithFinalEmptyArgumentList() {
+
+        let deeplink: Deeplink<TestData> = try! "/sell/\(\.testList1, separator: ",")"
+
+        let data = try! URLPatternMatcher(url: "https://apple.com/sell/")
+
+        do {
+            var test = TestData()
+
+            try data.match(components: deeplink.components, into: &test)
+
+            XCTAssertNil(test.test1)
+            XCTAssertNil(test.test2)
+            XCTAssertNil(test.test3)
+            XCTAssertNil(test.test4)
+            XCTAssertNil(test.test5)
+            XCTAssertEqual([], test.testList1)
             XCTAssertNil(test.testList2)
             XCTAssertNil(test.testList3)
             XCTAssertNil(test.testList4)

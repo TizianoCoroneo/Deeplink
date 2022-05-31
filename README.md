@@ -29,9 +29,9 @@ If you use Xcode 12, use version `.upToNextMinor(from: "0.1.0")`.
 .package(url: "https://github.com/TizianoCoroneo/Deeplink", .upToNextMinor(from: "0.1.0"))
 ```
 
-If you use Xcode 13, you can use `.upToNextMinor(from: "0.1.1")`.
+If you use Xcode 13, you can use `.upToNextMinor(from: "0.2.0")`.
 ```swift
-.package(url: "https://github.com/TizianoCoroneo/Deeplink", .upToNextMinor(from: "0.1.1"))
+.package(url: "https://github.com/TizianoCoroneo/Deeplink", .upToNextMinor(from: "0.2.0"))
 ```
 
 ## Using this library

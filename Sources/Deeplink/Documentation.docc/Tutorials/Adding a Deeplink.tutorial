@@ -44,6 +44,40 @@
         }
     }
     
+    @Section(title: "Adding a deeplink that catches a list of parameters") {
+        Sometimes, you need to parse a list of parameters of arbitrary length from a link.
+        
+        You can use "argument list" interpolation to parse such links.
+        
+        The link we want to support looks like this: `https://example.com/items?ids=1,2,3,4`.
+        
+        @Steps {
+            @Step {
+                Define the data you want to extract from the deeplink URL. 
+                
+                In this case, we want to get the `ids` of the items, each as a separate argument so that we can handle them separately. As always, you should declare your properties as optionals, so that if you can tell apart arguments that you did not use in the link from empty arguments lists.
+                
+                @Code(name: "Defining Deeplink Data Lists.swift", file: "AddingADeeplinkList 1.swift")
+            }
+            
+            @Step {
+                Now we need to make a template that describes how to parse the information from a link.
+                
+                This time, we'll use a keypath to our `[String]` property, and pass an additional argument to tell the system what separator should we use to parse the arguments.
+                
+                As before, the data present in the URL at the location where the keypath is inserted will be assigned to the property indicated by the keypath; each item in its own String object.
+                
+                @Code(name: "Defining Deeplink Data Lists.swift", file: "AddingADeeplinkList 2.swift")
+            }
+            
+            @Step {
+                As usual we register the template with the notification center, and we can now use the center to parse URLs just like before.
+                  
+                @Code(name: "Defining Deeplink Data Lists.swift", file: "AddingADeeplinkList 3.swift")
+            }
+        }
+    }
+    
     @Section(title: "Adding more deeplinks") {
         Now let's add more deeplinks: we'll add one for opening the Account page and one to open the product detail page.
         
