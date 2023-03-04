@@ -1,8 +1,8 @@
 
 import Foundation
 
-struct SampleDeeplink<Value> {
-    init(
+public struct SampleDeeplink<Value> {
+    public init(
         deeplinkTemplate: Deeplink<Value>,
         urlToParse: URL,
         assigningToInstance: Value,
@@ -23,7 +23,7 @@ struct SampleDeeplink<Value> {
     let assertions: (Value) -> Void
 }
 
-extension SampleDeeplink where Value == Void {
+public extension SampleDeeplink where Value == Void {
     init(
         deeplinkTemplate: Deeplink<Value>,
         urlToParse: URL,
@@ -52,7 +52,7 @@ fileprivate extension AnyDeeplink {
     }
 }
 
-extension DeeplinksCenter {
+public extension DeeplinksCenter {
     func testSampleDeeplink<Value>(
         _ sample: SampleDeeplink<Value>
     ) throws {
