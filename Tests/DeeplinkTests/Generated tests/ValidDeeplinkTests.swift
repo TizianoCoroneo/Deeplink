@@ -263,16 +263,16 @@ class ValidDeeplinkTests: XCTestCase {
     }
 
     @objc func runTestCase() {
-        assert(testCase != nil)
+        guard let testCase else { return }
 
         do {
-            try testCase!.run()
+            try testCase.run()
         } catch {
 
             let attachment = XCTAttachment(
                 string: """
-                URL: \(testCase!.url)
-                Deeplink: \(testCase!.deeplinkDescription)
+                URL: \(testCase.url)
+                Deeplink: \(testCase.deeplinkDescription)
                 Error: \(error)
                 """)
 
