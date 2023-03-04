@@ -3,7 +3,7 @@
 
 A microlibrary to parse deeplinks and their arguments using Swift's String interpolation.
 
-<a href="https://github.com/TizianoCoroneo/Deeplink/actions?query=workflow%3ATest"><img alt="GitHub Actions status" src="https://github.com/TizianoCoroneo/Deeplink/workflows/Test/badge.svg?branch=main&event=push"></a> <img src="https://img.shields.io/badge/Swift-5.4-orange.svg" /> <a href="https://swift.org/package-manager"><img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" /></a> <a href="https://twitter.com/TizianoCoroneo"><img src="https://img.shields.io/badge/contact-@TizianoCoroneo-blue.svg?style=flat" alt="Twitter: @TizianoCoroneo" /></a>
+<a href="https://github.com/TizianoCoroneo/Deeplink/actions?query=workflow%3ATest"><img alt="GitHub Actions status" src="https://github.com/TizianoCoroneo/Deeplink/workflows/Test/badge.svg?branch=main&event=push"></a> <img src="https://img.shields.io/badge/Swift-5.6-orange.svg" /> <a href="https://swift.org/package-manager"><img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" /></a> <a href="https://twitter.com/TizianoCoroneo"><img src="https://img.shields.io/badge/contact-@TizianoCoroneo-blue.svg?style=flat" alt="Twitter: @TizianoCoroneo" /></a>
 
 ## [What is deeplinking?](https://branch.io/what-is-deep-linking/)
 
@@ -16,13 +16,6 @@ This package provides the tools to define a specific deeplink template, pattern 
 The library only supports the Swift Package Manager. 
 To install `Deeplink` for use in an app, command line tool or server-side application, add Deeplink as a dependency to your `Package.swift` file. For more information, please see the [Swift Package Manager documentation](https://github.com/apple/swift-package-manager/tree/master/Documentation).
 
-If you use Xcode 12, use version `.upToNextMinor(from: "0.1.0")`. 
-
-```swift
-.package(url: "https://github.com/TizianoCoroneo/Deeplink", .upToNextMinor(from: "0.1.0"))
-```
-
-If you use Xcode 13 or later, you can use `.upToNextMinor(from: "0.2.0")`.
 ```swift
 .package(url: "https://github.com/TizianoCoroneo/Deeplink", .upToNextMinor(from: "0.2.0"))
 ```
