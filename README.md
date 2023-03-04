@@ -5,13 +5,6 @@ A microlibrary to parse deeplinks and their arguments using Swift's String inter
 
 <a href="https://github.com/TizianoCoroneo/Deeplink/actions?query=workflow%3ATest"><img alt="GitHub Actions status" src="https://github.com/TizianoCoroneo/Deeplink/workflows/Test/badge.svg?branch=main&event=push"></a> <img src="https://img.shields.io/badge/Swift-5.4-orange.svg" /> <a href="https://swift.org/package-manager"><img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" /></a> <a href="https://twitter.com/TizianoCoroneo"><img src="https://img.shields.io/badge/contact-@TizianoCoroneo-blue.svg?style=flat" alt="Twitter: @TizianoCoroneo" /></a>
 
-### Why are the tests failing?
-
-The main branch is using Swift 5.4 to fix a warning, which requires Xcode 12.5, which requires macOS 11 Big Sur. [GitHub actions do not support Big Sur and Xcode 12.5 yet](https://github.com/actions/virtual-environments/issues/2486).
-Use version `0.1.0` if you want a Swift 5.3 version that passes the tests.
-
-At this point I'm actually waiting to move onto Xcode Cloud. I already requested access.
-
 ## [What is deeplinking?](https://branch.io/what-is-deep-linking/)
 
 Mobile app's deep links (also known simply as “deep links”) are URLs that point to content inside an app. If you want to share a pair of shoes from Amazon with a friend, you can send a deep link that brings your friend directly to those shoes in the Amazon app. Without a deep link, your friend would have to find the Amazon app on the App Store or Play Store, open the app to the homepage, locate the Search function, and then try to find the same pair of shoes you found.
@@ -29,14 +22,14 @@ If you use Xcode 12, use version `.upToNextMinor(from: "0.1.0")`.
 .package(url: "https://github.com/TizianoCoroneo/Deeplink", .upToNextMinor(from: "0.1.0"))
 ```
 
-If you use Xcode 13, you can use `.upToNextMinor(from: "0.2.0")`.
+If you use Xcode 13 or later, you can use `.upToNextMinor(from: "0.2.0")`.
 ```swift
 .package(url: "https://github.com/TizianoCoroneo/Deeplink", .upToNextMinor(from: "0.2.0"))
 ```
 
 ## Using this library
 
-In addition to the examples below, there is a shiny new DocC documentation that will let you see Deeplink's doccomments and a couple cool tutorials directly in Xcode's documentation window. Just select the option `Product > Build Documentation` to get started (if you have Xcode 13).
+In addition to the examples below, there is a DocC documentation that will let you see Deeplink's doccomments and a couple cool tutorials directly in Xcode's documentation window. Just select the option `Product > Build Documentation` to get started (if you have Xcode 13 or later).
 
 ### Defining deeplinks
 
