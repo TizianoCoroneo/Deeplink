@@ -22,7 +22,8 @@ To install `Deeplink` for use in an app, command line tool or server-side applic
 
 ## Using this library
 
-In addition to the examples below, there is a DocC documentation that will let you see Deeplink's doccomments and a couple cool tutorials directly in Xcode's documentation window. Just select the option `Product > Build Documentation` to get started (if you have Xcode 13 or later).
+In addition to the examples below, there is a DocC documentation that also contains a couple cool tutorials. 
+You can either [explore the documentation online](https://tizianocoroneo.github.io/Deeplink/documentation/deeplink/) or within Xcode: just select the option `Product > Build Documentation` to get started (if you have Xcode 13 or later).
 
 ### Defining deeplinks
 
