@@ -23,6 +23,9 @@ When parsing a URL, the parameter is associated with the KeyPath that occupies t
 - ``Deeplink/Deeplink``
 - ``Deeplink/DeeplinksCenter``
 
+### Tests
+- ``Deeplink/SampleDeeplink``
+
 ### Utility
 
 - ``Deeplink/DefaultInitializable``
