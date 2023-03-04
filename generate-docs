@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+swift package \
+    --allow-writing-to-directory ./docs \
+    generate-documentation --target Deeplink \
+    --disable-indexing \
+    --transform-for-static-hosting \
+    --hosting-base-path Deeplink \
+    --output-path ./docs
