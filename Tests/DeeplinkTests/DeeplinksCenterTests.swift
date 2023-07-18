@@ -9,6 +9,7 @@ import Foundation
 import XCTest
 @testable import Deeplink
 
+@MainActor
 class DeeplinksCenterTests: XCTestCase {
 
     struct Artist: Equatable {
@@ -360,7 +361,7 @@ class DeeplinksCenterTests: XCTestCase {
         XCTAssertNoThrow(try repo
             .parse(url: "https://ticketswap.com/test1/test3"))
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: 0.01, handler: nil)
     }
 
     func testMultipleMatchingLiteralFormatsCallSameClosure() {
@@ -462,7 +463,7 @@ class DeeplinksCenterTests: XCTestCase {
         XCTAssertNoThrow(try repo
             .parse(url: url3))
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: 0.01, handler: nil)
     }
 
     func testNoMatchFound() {
@@ -597,7 +598,7 @@ class DeeplinksCenterTests: XCTestCase {
                     deeplinkError)
         })
 
-        waitForExpectations(timeout: 0.1, handler: nil)
+        waitForExpectations(timeout: 0.01, handler: nil)
     }
 
     func testMatchingSuccessDoesNotRollToNextMatches() {

@@ -19,6 +19,7 @@ fileprivate struct TestData2 {
     var arg2: String?
 }
 
+@MainActor
 class DeeplinkBuilderTests: XCTestCase {
 
     func testFunctionBuilder() throws {

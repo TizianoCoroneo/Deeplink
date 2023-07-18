@@ -104,7 +104,7 @@ public class DeeplinksCenter {
     public func register<Value>(
         deeplink: Deeplink<Value>,
         assigningTo: Value,
-        ifMatching completion: @escaping (URL, Value) throws -> Bool
+        ifMatching completion: @escaping @MainActor (URL, Value) throws -> Bool
     ) -> DeeplinksCenter {
         let typeErasedDeeplink = AnyDeeplink(
             deeplink: deeplink,
@@ -152,7 +152,7 @@ public class DeeplinksCenter {
     public func register<Value>(
         deeplinks: [Deeplink<Value>],
         assigningTo: Value,
-        ifMatching completion: @escaping (URL, Value) throws -> Bool
+        ifMatching completion: @escaping @MainActor (URL, Value) throws -> Bool
     ) -> DeeplinksCenter {
 
         self.deeplinks.append(contentsOf: deeplinks.map {
@@ -200,7 +200,7 @@ public class DeeplinksCenter {
     @discardableResult
     public func register(
         deeplink: Deeplink<Void>,
-        ifMatching completion: @escaping (URL) throws -> Bool
+        ifMatching completion: @escaping @MainActor (URL) throws -> Bool
     ) -> DeeplinksCenter {
         self.register(
             deeplink: deeplink,
@@ -243,7 +243,7 @@ public class DeeplinksCenter {
     @discardableResult
     public func register(
         deeplinks: [Deeplink<Void>],
-        ifMatching completion: @escaping (URL) throws -> Bool
+        ifMatching completion: @escaping @MainActor (URL) throws -> Bool
     ) -> DeeplinksCenter {
         self.register(
             deeplinks: deeplinks,
@@ -257,7 +257,7 @@ public class DeeplinksCenter {
     /// If a match is found, the corresponding argument segments will be assigned to the keypaths specified in the deeplink interpolation, and the `ifMatching` closure defined when calling `register:` will be executed.
     /// If no match is found, an error is thrown.
     /// - Parameter url: The `URL` to parse.
-    public func parse(
+    @MainActor public func parse(
         url: URL
     ) throws {
 
