@@ -116,10 +116,15 @@ class URLPathDataTests: XCTestCase {
             data)
     }
 
-    func testURLPathDataInitializerThrowsForInvalidComponents() {
+    func testURLPathDataInitializerThrowsForInvalidComponents() throws {
+
+        if #available(iOS 17, *) {
+            throw XCTSkip()
+        }
 
         /// `a://@@` conforms to RFC 1808 (passing the URL initializer), but not to RFC 3986, necessary for `URLComponents` to work.
         /// https://stackoverflow.com/questions/55609012/what-kind-of-url-is-not-conforming-to-rfc-3986-but-is-conforming-to-rfc-1808-rf
+        /// UPDATE: iOS 17's `URL` initializer does not accept this URL anymore. I have no idea what RFC is in effect now.
         let url: URL = "a://@@"
 
         XCTAssertThrowsError(

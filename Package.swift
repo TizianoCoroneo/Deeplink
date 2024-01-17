@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "Deeplink",
     platforms: [
-        .iOS(.v9),
+        .iOS(.v13),
         .macOS(.v10_10),
     ],
     products: [
