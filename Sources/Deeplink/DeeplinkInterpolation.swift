@@ -69,6 +69,17 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
             case .argumentList: return "{{ argument list }}"
             }
         }
+
+        func encode(value: Value) -> String {
+            switch self {
+            case let .literal(v): 
+                return v
+            case let .argument(v):
+                return value[keyPath: v] ?? ""
+            case let .argumentList(v, separator: character):
+                return value[keyPath: v]?.joined(separator: String(character)) ?? ""
+            }
+        }
     }
 
     // MARK: - Properties
@@ -205,6 +216,14 @@ public struct DeeplinkInterpolation<Value>: Equatable, Hashable, StringInterpola
 
         // Use the url data to pattern match the deeplink components.
         try data.match(components: self.components, into: &instance)
+    }
+
+    func encode(
+        _ value: Value
+    ) -> String {
+        self.components.map({
+            $0.encode(value: value)
+        }).joined()
     }
 }
 
