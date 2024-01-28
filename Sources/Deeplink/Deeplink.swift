@@ -45,6 +45,12 @@ public enum Deeplink<Value>: Equatable, Hashable {
         case .interpolated(let interpolation): return interpolation
         }
     }
+
+    public func encode(
+        _ value: Value
+    ) -> String {
+        interpolation.encode(value)
+    }
 }
 
 // MARK: - ExpressibleByStringLiteral
