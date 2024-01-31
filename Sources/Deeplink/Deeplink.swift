@@ -45,7 +45,27 @@ public enum Deeplink<Value>: Equatable, Hashable {
         case .interpolated(let interpolation): return interpolation
         }
     }
-
+    
+    /// Encodes object into string representation of deeplink
+    ///
+    /// Example
+    ///
+    /// ```swift
+    /// struct Ticket {
+    ///   var ticketId: String?
+    /// }
+    ///
+    /// let deeplink = try! "/sell/\(\.ticketId)" as Deeplink<Ticket>
+    ///
+    /// var ticket = Ticket(ticketId: "123")
+    /// let encoded = deeplink.encode(ticket)
+    ///
+    /// print(encoded) // "/sell/123"
+    /// ```
+    ///
+    /// Opposite to parse
+    /// - Parameter value: object to encode
+    /// - Returns: string representation of deeplink with specified object
     public func encode(
         _ value: Value
     ) -> String {
