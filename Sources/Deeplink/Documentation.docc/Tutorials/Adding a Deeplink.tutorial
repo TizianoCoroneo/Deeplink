@@ -64,7 +64,6 @@
                 Now we need to make a template that describes how to parse the information from a link.
                 
                 This time, we'll use a keypath to our `[String]` property, and pass an additional argument to tell the system what separator should we use to parse the arguments.
-                
                 As before, the data present in the URL at the location where the keypath is inserted will be assigned to the property indicated by the keypath; each item in its own String object.
                 
                 @Code(name: "Defining Deeplink Data Lists.swift", file: "AddingADeeplinkList 2.swift")

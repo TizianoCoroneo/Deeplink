@@ -39,7 +39,7 @@ public struct SampleDeeplink<Value> {
     ///   - deeplinkTemplate: The deeplink template that you want to test. It is recommended to pass the exact same template instance that you use in your `DeeplinkCenter` to avoid having to manually keep them in sync.
     ///   - urlToParse: The test URL that you want to use for testing.
     ///   - assigningToInstance: The instance of the object to which assign the values of the parsed parameters.
-    ///   - expectation: A closure where you should declare an expectation to fulfill, using ``XCTest/XCTestCase/expectation(description:)``.
+    ///   - expectation: A closure where you should declare an expectation to fulfill, using `XCTestCase.expectation(description:)`.
     ///   - assertions: A closure that you can use to verify the correctness of the parsed parameters.
     public init(
         deeplinkTemplate: Deeplink<Value>,
@@ -67,7 +67,7 @@ public extension SampleDeeplink where Value == Void {
     /// - Parameters:
     ///   - deeplinkTemplate: The deeplink template that you want to test. It is recommended to pass the exact same template instance that you use in your `DeeplinkCenter` to avoid having to manually keep them in sync.
     ///   - urlToParse: The test URL that you want to use for testing.
-    ///   - expectation: A closure where you should declare an expectation to fulfill, using ``XCTest/XCTestCase/expectation(description:)``.
+    ///   - expectation: A closure where you should declare an expectation to fulfill, using `XCTestCase.expectation(description:)`.
     init(
         deeplinkTemplate: Deeplink<Value>,
         urlToParse: URL,
