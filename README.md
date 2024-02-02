@@ -17,7 +17,7 @@ The library only supports the Swift Package Manager.
 To install `Deeplink` for use in an app, command line tool or server-side application, add Deeplink as a dependency to your `Package.swift` file. For more information, please see the [Swift Package Manager documentation](https://github.com/apple/swift-package-manager/tree/master/Documentation).
 
 ```swift
-.package(url: "https://github.com/TizianoCoroneo/Deeplink", .upToNextMinor(from: "0.2.0"))
+.package(url: "https://github.com/TizianoCoroneo/Deeplink", .upToNextMinor(from: "0.3.0"))
 ```
 
 ## Using this library
